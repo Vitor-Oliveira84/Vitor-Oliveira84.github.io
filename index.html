@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Vitor Oliveira | Portfólio</title>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Courier New', monospace;
+    background: radial-gradient(circle at top, #0f111a, #020617);
+    color: #c0ffee;
+  }
+
+  .container {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "sidebar main";
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 80px 1fr;
+    height: 100vh;
+  }
+
+  header {
+    grid-area: header;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #22c55e;
+  }
+
+  header img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  header h1 {
+    color: #38f9d7;
+    font-size: 1.5rem;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+    background: #1a1c2a;
+    padding: 15px;
+    overflow-y: auto;
+    border-right: 1px solid #22c55e;
+  }
+
+  .repo {
+    background: #111827;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 3px solid #22c55e;
+    border-radius: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  .repo:hover {
+    background: #1f2233;
+    transform: translateX(5px);
+    border-left: 3px solid #38f9d7;
+  }
+
+  .repo a {
+    color: #38f9d7;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .repo p {
+    font-size: 12px;
+    color: #9ca3af;
+  }
+
+  .main {
+    grid-area: main;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  h2 {
+    color: #38f9d7;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #22c55e;
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+
+  /* Certificações */
+  .certifications {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .cert-card {
+    background: #111827;
+    border: 1px solid #22c55e;
+    border-radius: 10px;
+    padding: 10px;
+    width: 130px;
+    text-align: center;
+    transition: 0.2s;
+  }
+
+  .cert-card:hover {
+    transform: scale(1.05);
+    border-color: #38f9d7;
+  }
+
+  .cert-card img {
+    width: 60px;
+    margin-bottom: 5px;
+  }
+
+  .cert-card p {
+    font-size: 12px;
+  }
+
+  .cert-card small {
+    color: #9ca3af;
+  }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <img src="https://github.com/Vitor-Oliveira84.png" alt="Avatar">
+    <h1>Vitor Oliveira</h1>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>📁 Repositórios</h2>
+    <div id="repos">Carregando...</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <h2>👨‍💻 Sobre mim</h2>
+    <p>
+    Profissional de Segurança Ofensiva com experiência em análise de eventos, resposta a incidentes e exploração de vulnerabilidades.
+    </p>
+    <p>
+    Atuação focada em Pentest e Red Team, com ênfase em simulação de ataques reais, movimentação lateral em Active Directory, privilege escalation e evasão de mecanismos de defesa em ambientes corporativos.
+    </p>
+
+    <h2>🎯 Objetivo</h2>
+    <p>
+    Atuar com Pentest e Red Team, simulando ataques reais para identificar vulnerabilidades, explorar falhas de segurança e fortalecer a postura de segurança de ambientes corporativos.
+    </p>
+
+    <h2>⚔️ Foco Atual</h2>
+    <p>
+    - Active Directory Attack Paths<br>
+    - Evasão de EDR<br>
+    - Command and Control (C2)<br>
+    - Exploração de APIs e Aplicações Web<br>
+    - Exploração de Aplicativos Mobile<br>
+    </p>
+
+    <h2>🛠️ Habilidades</h2>
+
+    <p><strong>Red Team & Pentest:</strong><br>
+    Enumeração, exploração de vulnerabilidades, pós-exploração, movimentação lateral, privilege escalation</p>
+
+    <p><strong>Ferramentas:</strong><br>
+    Burp Suite, Nmap, Metasploit, SQLMap, BloodHound, CrackMapExec</p>
+
+    <p><strong>Ambientes:</strong><br>
+    Active Directory, Windows, Linux</p>
+
+    <p><strong>Conceitos:</strong><br>
+    MITRE ATT&CK, TTPs, evasão de defesa, análise de logs</p>
+
+    <h2>🎓 Certificações</h2>
+
+    <div class="certifications">
+
+      <div class="cert-card">
+        <p>CRTA - Certified Red Team Analyst<br><small>CyberWarFare Labs</small></p>
+      </div>
+
+      <div class="cert-card">
+        <p>CRTP - Certified Red Team Professional<br><small>Altered Security</small></p>
+      </div>
+
+      <div class="cert-card">
+        <p>DCPT - DESEC Certified Penetration Tester<br><small>DESEC Security</small></p>
+      </div>
+
+    </div>
+
+    <h2>🔥 Projetos em Destaque</h2>
+    <p>
+    - AD Attack Simulation Lab (Em Construção)<br>
+    - Web Pentest Automation Scripts (Em Construção)<br>
+    - C2 Communication Experiments (Em Construção)
+    </p>
+
+    <h2>💼 Experiência</h2>
+      <p><strong>Perfil híbrido com atuação em segurança defensiva e ofensiva, com foco atual em Red Team.</strong></p>
+<p><strong>🔵 Defesa & Monitoramento:</strong><br>
+- Análise e investigação de eventos de segurança em ambientes corporativos<br>
+- Identificação de comportamentos suspeitos e resposta a incidentes<br>
+- Análise de logs e correlação de eventos para detecção de ameaças<br>
+- Apoio à melhoria de regras de detecção e postura de segurança
+</p>
+
+<p><strong>🔴 Segurança Ofensiva (Pentest / Red Team):</strong><br>
+- Execução de testes de intrusão em ambientes de laboratório e cenários simulados<br>
+- Exploração de vulnerabilidades em aplicações web e APIs<br>
+- Enumeração e análise de ambientes Active Directory<br>
+- Simulação de movimentação lateral e técnicas de privilege escalation<br>
+- Estudos práticos de evasão de mecanismos de defesa (EDR/AV)<br>
+- Desenvolvimento de scripts e automações para apoio a atividades de Pentest<br>
+- Criação de laboratórios para simulação de ataques e técnicas adversárias
+</p>
+
+    <h2>📞 Contato</h2>
+    <p>
+      GitHub: <a href="https://github.com/Vitor-Oliveira84" target="_blank">Perfil</a>
+    </p>
+    <p>
+      LinkedIn: <a href="https://www.linkedin.com/in/vitor-cesar-oliveira/" target="_blank">Perfil</a>
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+async function carregarRepos() {
+  const container = document.getElementById("repos");
+
+  try {
+    const res = await fetch("https://api.github.com/users/Vitor-Oliveira84/repos");
+    const repos = await res.json();
+
+    container.innerHTML = "";
+
+    repos
+      .filter(repo => repo.name !== "Vitor-Oliveira84.github.io")
+      .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
+      .forEach(repo => {
+        const div = document.createElement("div");
+        div.className = "repo";
+
+        div.innerHTML = `
+          <a href="${repo.html_url}" target="_blank">
+            ${repo.name}
+          </a>
+          <p>${repo.description || "Sem descrição"}</p>
+        `;
+
+        container.appendChild(div);
+      });
+
+  } catch (e) {
+    container.innerHTML = "Erro ao carregar repositórios.";
+  }
+}
+
+carregarRepos();
+</script>
+
+</body>
+</html>
