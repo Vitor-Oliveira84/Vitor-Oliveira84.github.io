@@ -317,6 +317,23 @@ python model-extraction.py -a $API_URL -m $MODEL
 
 ---
 
+## 💬 Prompts Equivalentes (Alternative Approach)
+
+**Todas as funcionalidades dos scripts também podem ser feitas por prompts diretos!**
+
+Veja [LLM-PROMPTS.md](LLM-PROMPTS.md) para:
+- ✅ 21 prompts equivalentes aos 6 scripts
+- ✅ Comparação Script vs Prompt (vantagens/desvantagens)
+- ✅ Quando usar cada abordagem
+- ✅ Workflow híbrido recomendado (prompts + scripts)
+- ✅ Checklist de execução rápida
+
+**TL;DR:**
+- **Prompts:** Rápidos, exploratórios, zero setup, ideal para descoberta inicial
+- **Scripts:** Automação, escala, relatórios, ideal para assessments estruturados
+
+---
+
 ## 🛠️ Dependências
 
 ```bash
