@@ -31,26 +31,27 @@ Cada ataque é documentado com:
 ## 🏛️ Topologia do Laboratório
 
 ```
-                     ┌─────────────────┐
-                     │  Kali Linux     │
-                     │   (Atacante)    │
-                     └────────┬────────┘
-                              │
-                    ┌─────────┼─────────┐
-                    │                   │
-          ┌─────────▼────────┐  ┌──────▼──────────┐
-          │  Windows Server  │  │  Windows 10     │
-          │  (Domain DC)     │  │  (Workstation1) │
-          │  lab.local       │  │  Member         │
-          └────────┬─────────┘  └──────┬──────────┘
-                   │                   │
-          ┌────────▼──────────────────┘
-          │
-    ┌─────▼──────────┐
-    │  Windows 10    │
-    │  (Workstation2)│
-    │  Member        │
-    └────────────────┘
+                    ┌─────────────────┐
+                    │  Máquina Kali   │
+                    │   (Atacante)    │
+                    └────────┬────────┘
+                             │
+                ┌────────────┼────────────┐
+                │                        │
+      ┌─────────▼────────┐      ┌───────▼──────────┐
+      │  Estação 1       │      │  Estação 2       │
+      │  Windows 10/11   │      │  Windows 10/11   │
+      │  Member          │      │  Member          │
+      └──────────────────┘      └───────┬──────────┘
+                │                        │
+                └────────────┬───────────┘
+                             │
+                    ┌────────▼─────────┐
+                    │  Servidor AD     │
+                    │  Windows Server  │
+                    │  Domain Controller
+                    │  lab.local       │
+                    └──────────────────┘
 
 Network: 192.168.56.0/24
 Domain: lab.local
@@ -73,22 +74,16 @@ Domain: lab.local
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Como Usar
 
-```bash
-# Clone o repositório
-git clone https://github.com/Vitor-Oliveira84/AD-Lab-Ataques-Top10.git
-cd AD-Lab-Ataques-Top10
+Esta documentação serve como **referência de comandos e métodos de detecção** para operações de Red Team e análise defensiva em ambientes Active Directory.
 
-# Veja a documentação de cada ataque
-ls attacks/
-cd attacks/01-kerberoasting/
-cat theory.md          # Entenda a técnica
-cat lab-setup.md       # Configure o lab
-cat exploitation.md    # Execute o ataque
-cat detection.md       # Detecte o ataque
-cat mitigation.md      # Mitigue a vulnerabilidade
-```
+**Para cada técnica, você encontrará:**
+- 📖 **theory.md** — Conceitos e fundamentos técnicos
+- 🏗️ **lab-setup.md** — Configuração passo-a-passo do laboratório
+- ⚔️ **exploitation.md** — Comandos reais e POCs funcionais
+- 🔍 **detection.md** — Indicadores e regras de detecção
+- 🛡️ **mitigation.md** — Estratégias de defesa e hardening
 
 ---
 
