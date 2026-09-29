@@ -501,6 +501,207 @@ Write-Host ""
 .\Hunt-SuspiciousFiles.ps1 -Extension "zip" -MinSize 1000000 -CalculateHash -IncludeContent
 ```
 
+### Script Rápido e Otimizado — Busca Direta em Locais-Chave
+
+```powershell
+# ==========================================
+# RAPID HUNT - Busca Otimizada por IOC
+# ==========================================
+# Versão otimizada para RTR - sem recursão, direto nos locais de maior risco
+
+param(
+    [string]$FilePattern = "~DFD96EB667EF8D8C33.TMP",  # Nome/padrão do arquivo
+    [string]$Extension,                                # Extensão específica (ex: "exe")
+    [switch]$Recursive,                                # Incluir subpastas
+    [switch]$CalculateHash                             # Calcular SHA256
+)
+
+# Cores para output
+$colorFound = "Green"
+$colorStep = "Yellow"
+$colorTitle = "Cyan"
+$colorHash = "Yellow"
+
+Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor $colorTitle
+Write-Host "║     CrowdStrike RTR - Rapid IOC Search (Otimizado)        ║" -ForegroundColor $colorTitle
+Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor $colorTitle
+
+Write-Host "`nProcurando por: $FilePattern" -ForegroundColor $colorTitle
+Write-Host "Timestamp: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor Gray
+
+# Locais-chave de busca (pontos de infecção mais prováveis)
+$searchLocations = @(
+    @{
+        Name = "Temp Local (AppData)"
+        Path = "$env:LOCALAPPDATA\Temp"
+        Priority = "ALTA"
+    },
+    @{
+        Name = "Windows Temp"
+        Path = "C:\Windows\Temp"
+        Priority = "ALTA"
+    },
+    @{
+        Name = "Downloads"
+        Path = "$env:USERPROFILE\Downloads"
+        Priority = "ALTA"
+    },
+    @{
+        Name = "Desktop"
+        Path = "$env:USERPROFILE\Desktop"
+        Priority = "MÉDIA"
+    },
+    @{
+        Name = "Recent"
+        Path = "$env:APPDATA\Microsoft\Windows\Recent"
+        Priority = "MÉDIA"
+    },
+    @{
+        Name = "ProgramData Temp"
+        Path = "C:\ProgramData"
+        Priority = "MÉDIA"
+    },
+    @{
+        Name = "AppData Roaming"
+        Path = "$env:APPDATA"
+        Priority = "BAIXA"
+    }
+)
+
+$totalFound = 0
+$resultsArray = @()
+$stepNumber = 1
+$totalSteps = $searchLocations.Count
+
+# Executar busca em cada local
+foreach ($location in $searchLocations) {
+    Write-Host "`n[$stepNumber/$totalSteps] $($location.Name) [$($location.Priority)]" -ForegroundColor $colorStep
+    Write-Host "  📂 $($location.Path)" -ForegroundColor Gray
+    
+    if (Test-Path $location.Path) {
+        try {
+            # Construir filtro
+            $filter = if ($Extension) { "*.$Extension" } else { $FilePattern }
+            
+            # Buscar (sem recursão por padrão = mais rápido)
+            if ($Recursive) {
+                $files = Get-ChildItem -Path $location.Path -Filter $filter -Recurse -ErrorAction SilentlyContinue -Force
+            } else {
+                $files = Get-ChildItem -Path $location.Path -Filter $filter -ErrorAction SilentlyContinue -Force
+            }
+            
+            if ($files.Count -gt 0) {
+                foreach ($file in $files) {
+                    $totalFound++
+                    Write-Host ""
+                    Write-Host "  ✓ ENCONTRADO: $($file.FullName)" -ForegroundColor $colorFound
+                    Write-Host "    📊 Tamanho: $($file.Length) bytes"
+                    Write-Host "    📅 Modificado: $($file.LastWriteTime)"
+                    Write-Host "    🏷️  Atributos: $($file.Attributes)"
+                    
+                    # Calcular hash se solicitado
+                    if ($CalculateHash) {
+                        $hash = Get-FileHash -Path $file.FullName -Algorithm SHA256 -ErrorAction SilentlyContinue
+                        if ($hash) {
+                            Write-Host "    🔐 SHA256: $($hash.Hash)" -ForegroundColor $colorHash
+                            $resultsArray += [PSCustomObject]@{
+                                Path = $file.FullName
+                                Size = $file.Length
+                                Modified = $file.LastWriteTime
+                                SHA256 = $hash.Hash
+                                Found = (Get-Date)
+                            }
+                        }
+                    } else {
+                        $resultsArray += [PSCustomObject]@{
+                            Path = $file.FullName
+                            Size = $file.Length
+                            Modified = $file.LastWriteTime
+                            Found = (Get-Date)
+                        }
+                    }
+                }
+            } else {
+                Write-Host "  ✗ Nenhum arquivo encontrado" -ForegroundColor Gray
+            }
+        } catch {
+            Write-Host "  ⚠️  Erro: $_" -ForegroundColor Red
+        }
+    } else {
+        Write-Host "  ⚠️  Caminho não encontrado" -ForegroundColor Red
+    }
+    
+    $stepNumber++
+}
+
+# Resumo final
+Write-Host ""
+Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor $colorTitle
+Write-Host "║                    RESULTADO FINAL                         ║" -ForegroundColor $colorTitle
+Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor $colorTitle
+
+if ($totalFound -gt 0) {
+    Write-Host "✓ Total encontrado: $totalFound arquivo(s)" -ForegroundColor $colorFound
+    Write-Host ""
+    
+    # Mostrar tabela de resultados
+    if ($CalculateHash) {
+        Write-Host "Arquivos com SHA256:" -ForegroundColor $colorTitle
+        $resultsArray | ForEach-Object {
+            Write-Host "$($_.SHA256)" -ForegroundColor $colorHash
+            Write-Host "  └─ $($_.Path)" -ForegroundColor Gray
+        }
+    } else {
+        Write-Host "Arquivos encontrados:" -ForegroundColor $colorTitle
+        $resultsArray | ForEach-Object {
+            Write-Host "✓ $($_.Path)" -ForegroundColor $colorFound
+            Write-Host "  └─ Tamanho: $($_.Size) bytes | Modificado: $($_.Modified)" -ForegroundColor Gray
+        }
+    }
+} else {
+    Write-Host "✗ Nenhum arquivo encontrado" -ForegroundColor "Red"
+}
+
+Write-Host ""
+Write-Host "Busca concluída em: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor Gray
+```
+
+### Exemplos de Uso Rápido
+
+```powershell
+# 1. Buscar arquivo específico (padrão original)
+.\Rapid-Hunt.ps1 -FilePattern "~DFD96EB667EF8D8C33.TMP" -CalculateHash
+
+# 2. Procurar por extensão (executáveis)
+.\Rapid-Hunt.ps1 -Extension "exe" -CalculateHash
+
+# 3. Procurar com inclusão de subpastas
+.\Rapid-Hunt.ps1 -Extension "vbs" -Recursive -CalculateHash
+
+# 4. Busca rápida sem hash (mais veloz)
+.\Rapid-Hunt.ps1 -FilePattern "malware*"
+
+# 5. Procurar por DLL suspeita
+.\Rapid-Hunt.ps1 -Extension "dll" -CalculateHash
+
+# 6. Procurar múltiplas extensões (executar em loop)
+$extensions = @("exe", "vbs", "js", "ps1")
+foreach ($ext in $extensions) {
+    .\Rapid-Hunt.ps1 -Extension $ext -CalculateHash
+}
+```
+
+### Locais de Busca Prioritários
+
+| Prioridade | Local | Por quê |
+|-----------|-------|--------|
+| **ALTA** | `$env:LOCALAPPDATA\Temp` | Temp de usuário - local de download/execução |
+| **ALTA** | `C:\Windows\Temp` | Temp do sistema |
+| **ALTA** | `$env:USERPROFILE\Downloads` | Downloads - ponto de entrada comum |
+| **MÉDIA** | `$env:USERPROFILE\Desktop` | Desktop do usuário |
+| **MÉDIA** | `C:\ProgramData` | Shared para todos usuários |
+| **BAIXA** | `$env:APPDATA` | Roaming AppData |
+
 ### Variáveis Úteis para Customização
 
 ```powershell
