@@ -6,7 +6,9 @@ Conjunto profissional de scripts para **Red Team**, **Pentest**, e **Threat Hunt
 
 ---
 
-## 📋 Scripts Inclusos
+## 📋 Scripts Inclusos (20 Total)
+
+### **PYTHON SCRIPTS (9)**
 
 ### **1. ad-enum-exploit.py** (Python)
 **Active Directory Enumeration & Exploitation**
@@ -179,7 +181,9 @@ python xxe-ssrf-payloader.py -u "http://example.com/api" -t both
 
 ---
 
-### **13. registry-dump.ps1** (PowerShell)
+### **POWERSHELL SCRIPTS (6)**
+
+### **10. event-log-parser.ps1** (PowerShell)
 **Windows Registry Extraction**
 ```powershell
 .\registry-dump.ps1 -FullDump
