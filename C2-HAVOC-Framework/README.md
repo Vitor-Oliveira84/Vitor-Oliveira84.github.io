@@ -425,7 +425,7 @@ Indícadores que defesa pode detectar:
 ## 📚 Referências
 
 - [HAVOC GitHub](https://github.com/C5pider/Havoc)
-- [Dokumentação HAVOC](https://havoc.gitbook.io/)
+- [Documentação HAVOC](https://havoc.gitbook.io/)
 - [Cyber Kill Chain - Lockheed Martin](https://www.lockheedmartin.com/en-us/capabilities/cyber/cyber-kill-chain.html)
 - [MITRE ATT&CK - Command & Control](https://attack.mitre.org/tactics/TA0011/)
 - [EDR Evasion Techniques](https://outflank.nl/blog/)
