@@ -1,8 +1,40 @@
 # 🤖 LLM Security Assessment Toolkit
 
-Conjunto profissional de scripts para avaliar segurança de Modelos de Linguagem Grande (LLMs) baseado em **CLLMSE** (Certified LLM Security Engineer) e **CLLMSP** (Certified LLM Security Practitioner).
+**Avaliação profissional de segurança de Modelos de Linguagem Grande (LLMs)**
 
-**6 Scripts Especializados | 1,200+ Linhas | Pronto para Produção**
+Baseado em **CLLMSE** (Certified LLM Security Engineer) e **CLLMSP** (Certified LLM Security Practitioner)
+
+---
+
+## 🔀 Escolha sua Abordagem
+
+### 🔧 **[Scripts Approach →](Scripts/)**
+- 6 scripts Python especializados
+- 1,200+ linhas de código
+- Automação completa
+- Relatórios estruturados
+- **Ideal para:** Assessments profissionais, auditorias regulares, integração com CI/CD
+
+### 💬 **[Prompts Approach →](Prompts/)**
+- 21 prompts equivalentes
+- Zero setup necessário
+- Testes exploratórios
+- Validação manual
+- **Ideal para:** Descoberta inicial, testes rápidos, pesquisa
+
+---
+
+## 📊 Comparação Rápida
+
+| Recurso | Scripts | Prompts |
+|---------|---------|---------|
+| Velocidade | ⚡ Rápido | 🟢 Instant |
+| Automação | ✅ Completa | ❌ Manual |
+| Setup | ⚠️ Necessário | ✅ Zero |
+| Escalabilidade | ✅ 100+ testes | ❌ 1-5 por vez |
+| Documentação | ✅ Estruturada | ❌ Ad-hoc |
+
+**Recomendação:** Combine ambas abordagens para máxima cobertura!
 
 ---
 
