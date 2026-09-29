@@ -384,16 +384,6 @@ sudo ./port-scan-parallel.sh -t target
 
 ---
 
-## 🚀 Próximos Scripts Sugeridos
-
-- [ ] Process Injection Detector (PS)
-- [ ] Mimikatz Automation (PS)
-- [ ] Proxy Auto-Rotation (Python)
-- [ ] Scheduled Tasks Backdoor (PS)
-- [ ] Automated Vuln Scanner (Python)
-
----
-
 ## 📄 Licença
 
 **Apenas para fins educacionais e testes autorizados.**
