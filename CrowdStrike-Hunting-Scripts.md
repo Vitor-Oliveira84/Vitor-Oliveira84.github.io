@@ -334,6 +334,206 @@ foreach ($pattern in $suspiciousPatterns) {
 
 ---
 
+## 🔎 Script Adaptável — Busca de Arquivos/Pastas Suspeitos
+
+### Uso Genérico para Qualquer Padrão de Busca
+
+```powershell
+# ==========================================
+# THREAT HUNTING - Busca Genérica Adaptável
+# ==========================================
+# 
+# Uso: .\Hunt-SuspiciousFiles.ps1 -Pattern "*.exe" -IncludeContent
+#      .\Hunt-SuspiciousFiles.ps1 -Filename "malware" -ExcludeSystem32
+#      .\Hunt-SuspiciousFiles.ps1 -Extension "js" -CalculateHash
+
+param(
+    [string]$Pattern = "*",           # Padrão de arquivo (ex: "*.js", "malware*")
+    [string]$Filename,                # Nome específico do arquivo (ex: "jfbfb.js")
+    [string]$Extension,               # Extensão específica (ex: "exe", "dll", "vbs")
+    [string[]]$SearchPaths = @(
+        "C:\Users",
+        "C:\Windows\Temp",
+        "C:\ProgramData",
+        "$env:APPDATA",
+        "$env:LOCALAPPDATA",
+        "$env:USERPROFILE\Downloads"
+    ),
+    [switch]$CalculateHash,           # Calcular SHA256
+    [switch]$IncludeContent,          # Mostrar primeiras linhas do arquivo
+    [switch]$ExcludeSystem32,         # Excluir System32
+    [int]$ContentLines = 5,           # Quantas linhas do conteúdo mostrar
+    [long]$MinSize,                   # Tamanho mínimo em bytes
+    [long]$MaxSize                    # Tamanho máximo em bytes
+)
+
+Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
+Write-Host "║   CrowdStrike RTR - Threat Hunting Adaptável              ║" -ForegroundColor Cyan
+Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+
+Write-Host "`nParâmetros de busca:" -ForegroundColor Yellow
+Write-Host "  Padrão: $Pattern"
+if ($Filename) { Write-Host "  Filename: $Filename" }
+if ($Extension) { Write-Host "  Extensão: *.$Extension" }
+Write-Host "  Caminhos: $($SearchPaths.Count) diretórios"
+Write-Host "  Calcular Hash: $CalculateHash"
+Write-Host "  Mostrar conteúdo: $IncludeContent"
+Write-Host ""
+
+# Construir filtro dinâmico
+if ($Extension) {
+    $searchFilter = "*.$Extension"
+} elseif ($Filename) {
+    $searchFilter = $Filename
+} else {
+    $searchFilter = $Pattern
+}
+
+$foundCount = 0
+$resultsArray = @()
+
+# Buscar em cada caminho
+foreach ($path in $SearchPaths) {
+    if (Test-Path $path) {
+        Write-Host "🔍 Procurando em: $path" -ForegroundColor Cyan
+        
+        try {
+            $files = Get-ChildItem -Path $path -Filter $searchFilter -Recurse -ErrorAction SilentlyContinue -Force
+            
+            foreach ($file in $files) {
+                # Filtrar por tamanho se especificado
+                if ($MinSize -and $file.Length -lt $MinSize) { continue }
+                if ($MaxSize -and $file.Length -gt $MaxSize) { continue }
+                
+                # Excluir System32 se solicitado
+                if ($ExcludeSystem32 -and $file.FullName -match "System32|SysWOW64") { continue }
+                
+                $foundCount++
+                Write-Host ""
+                Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Red
+                Write-Host "✓ ENCONTRADO: $($file.FullName)" -ForegroundColor Red
+                Write-Host "  📊 Tamanho: $($file.Length) bytes ($([math]::Round($file.Length/1MB, 2)) MB)"
+                Write-Host "  📅 Modificado: $($file.LastWriteTime)"
+                Write-Host "  👤 Owner: $(try {(Get-Acl $file.FullName).Owner} catch {'N/A'})"
+                
+                # Atributos
+                Write-Host "  🏷️  Atributos: $($file.Attributes)"
+                
+                # Calcular SHA256
+                if ($CalculateHash) {
+                    $hash = Get-FileHash -Path $file.FullName -Algorithm SHA256 -ErrorAction SilentlyContinue
+                    if ($hash) {
+                        Write-Host "  🔐 SHA256: $($hash.Hash)" -ForegroundColor Green
+                        $resultsArray += @{
+                            FullName = $file.FullName
+                            Size = $file.Length
+                            Modified = $file.LastWriteTime
+                            SHA256 = $hash.Hash
+                        }
+                    }
+                }
+                
+                # Mostrar conteúdo (primeiras linhas)
+                if ($IncludeContent -and ($file.Extension -match "\.txt|\.js|\.vbs|\.ps1|\.bat|\.cmd")) {
+                    Write-Host "  📄 Conteúdo (primeiras $ContentLines linhas):"
+                    try {
+                        $content = Get-Content -Path $file.FullName -TotalCount $ContentLines -ErrorAction SilentlyContinue
+                        if ($content) {
+                            $content | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
+                        }
+                    } catch {
+                        Write-Host "     [Não foi possível ler o conteúdo]" -ForegroundColor Gray
+                    }
+                }
+                
+                Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Red
+            }
+        } catch {
+            Write-Host "  ⚠️  Erro ao pesquisar: $_" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "  ⚠️  Caminho não encontrado: $path" -ForegroundColor Yellow
+    }
+}
+
+# Resumo final
+Write-Host ""
+Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
+Write-Host "║                        RESUMO                              ║" -ForegroundColor Cyan
+Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "Total encontrado: $foundCount arquivo(s)" -ForegroundColor $(if ($foundCount -gt 0) {"Red"} else {"Green"})
+
+if ($CalculateHash -and $resultsArray.Count -gt 0) {
+    Write-Host "`nHashes SHA256 para correlação:" -ForegroundColor Yellow
+    $resultsArray | ForEach-Object {
+        Write-Host "$($_.SHA256) - $($_.FullName)" -ForegroundColor Green
+    }
+}
+
+Write-Host ""
+```
+
+### Exemplos de Uso
+
+```powershell
+# 1. Procurar por um arquivo específico
+.\Hunt-SuspiciousFiles.ps1 -Filename "jfbfb.js" -CalculateHash
+
+# 2. Procurar por extensão suspeita
+.\Hunt-SuspiciousFiles.ps1 -Extension "vbs" -IncludeContent -ContentLines 10
+
+# 3. Procurar por executáveis em Downloads
+.\Hunt-SuspiciousFiles.ps1 -Extension "exe" -SearchPaths "$env:USERPROFILE\Downloads" -CalculateHash
+
+# 4. Procurar com padrão genérico (malware*)
+.\Hunt-SuspiciousFiles.ps1 -Pattern "malware*" -CalculateHash -IncludeContent
+
+# 5. Buscar arquivos PowerShell suspeitos (excluindo System32)
+.\Hunt-SuspiciousFiles.ps1 -Extension "ps1" -ExcludeSystem32 -CalculateHash
+
+# 6. Procurar por arquivos entre 1MB e 5MB
+.\Hunt-SuspiciousFiles.ps1 -Extension "exe" -MinSize 1048576 -MaxSize 5242880 -CalculateHash
+
+# 7. Procurar em caminho customizado
+.\Hunt-SuspiciousFiles.ps1 -Pattern "*.dll" -SearchPaths "C:\Program Files", "C:\Program Files (x86)" -CalculateHash
+
+# 8. Busca combinada (extensão + tamanho + hash)
+.\Hunt-SuspiciousFiles.ps1 -Extension "zip" -MinSize 1000000 -CalculateHash -IncludeContent
+```
+
+### Variáveis Úteis para Customização
+
+```powershell
+# Padrões comuns de IOCs
+$iocsToHunt = @{
+    "Ransomware" = @("*.exe", "*encrypt*", "*crypt*", "*payment*")
+    "Webshell" = @("*.php", "*.jsp", "*.aspx", "shell*")
+    "Scripts" = @("*.vbs", "*.js", "*.ps1", "*.bat")
+    "Archives" = @("*.zip", "*.rar", "*.7z", "*.iso")
+    "Backdoor" = @("*backdoor*", "*shell*", "*remote*")
+}
+
+# Pastas típicas de infecção
+$infectionPaths = @(
+    "$env:USERPROFILE\Downloads",
+    "$env:APPDATA\Local\Temp",
+    "C:\Windows\Temp",
+    "C:\Users\Public",
+    "$env:USERPROFILE\AppData\Roaming"
+)
+
+# Procurar por cada IOC
+foreach ($category in $iocsToHunt.Keys) {
+    Write-Host "`nBuscando $category..." -ForegroundColor Cyan
+    foreach ($pattern in $iocsToHunt[$category]) {
+        Write-Host "  Padrão: $pattern"
+        # Executar .\Hunt-SuspiciousFiles.ps1 -Pattern $pattern ...
+    }
+}
+```
+
+---
+
 ## ⚖️ Disclaimer
 
 Apenas use em **ambientes autorizados** com **ROE assinado**. Hunting em sistemas não autorizados é ilegal.
