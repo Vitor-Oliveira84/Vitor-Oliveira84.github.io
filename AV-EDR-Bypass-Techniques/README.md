@@ -54,7 +54,7 @@ Complete technical documentation across 5 modules covering endpoint protection e
 
 ## 📑 Complete Table of Contents
 
-### Módulo 1: Fundamentos de Evasão de Antivírus
+### Fundamentos de Evasão de Antivírus
 - Estrutura Portable Executable (PE)
 - Windows APIs e System Calls
 - P/Invoke vs D/Invoke
@@ -66,7 +66,7 @@ Complete technical documentation across 5 modules covering endpoint protection e
 - EDR (Endpoint Detection & Response)
 - Hells Gate & System Call Obfuscation
 
-### Módulo 2: Técnicas de Injeção de Código
+### Técnicas de Injeção de Código
 - Classic Process Injection
 - NtMapViewOfSection Injection
 - QueueUserAPC Injection
@@ -77,7 +77,7 @@ Complete technical documentation across 5 modules covering endpoint protection e
 - DLL Sideloading
 - Backdooring de Binários
 
-### Módulo 3-4: Command & Control + Windows Security Controls
+### Command & Control + Windows Security Controls
 **Parte 1: C2 Evasion**
 - C2 Redirectors
 - Network Profiles (Malleable C2)
@@ -94,7 +94,7 @@ Complete technical documentation across 5 modules covering endpoint protection e
 - Binary Signing & Code Certificates
 - Mark of the Web (SmartScreen)
 
-### Módulo 4: Macros e Entrega de Payload
+### Macros e Entrega de Payload
 - VBA Fundamentals
 - Macro AutoOpen & Obfuscation
 - Técnicas de Execução (Shell, WScript, WMI, Shellcode)

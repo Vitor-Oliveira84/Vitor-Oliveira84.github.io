@@ -6,7 +6,7 @@
 
 ## 📋 Índice Geral
 
-### Módulo 1: Fundamentos de Evasão de Antivírus
+### Fundamentos de Evasão de Antivírus
 - Estrutura Portable Executable (PE)
 - Windows APIs e System Calls
 - P/Invoke vs D/Invoke
@@ -18,14 +18,14 @@
 - EDR (Endpoint Detection & Response)
 - Hells Gate e System Call Obfuscation
 
-### Módulo 2: Técnicas de Injeção de Código
+### Técnicas de Injeção de Código
 - Process Injection (múltiplas variantes)
 - Process Hollowing
 - DLL Injection
 - DLL Sideloading (Supply Chain)
 - Backdooring de Binários
 
-### Módulo 3-4: Command & Control + Windows Security Controls
+### Command & Control + Windows Security Controls
 - C2 Redirectors
 - Network Profiles (Malleable C2)
 - Covert Channels
@@ -39,7 +39,7 @@
 - Binary Signing & Code Certificates
 - Mark of the Web (SmartScreen)
 
-### Módulo 5: Macros & Entrega de Payload
+### Macros & Entrega de Payload
 - VBA (Visual Basic Application)
 - Técnicas de AutoOpen
 - Execução via Shell/WSH

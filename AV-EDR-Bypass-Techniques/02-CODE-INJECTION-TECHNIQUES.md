@@ -1,4 +1,4 @@
-# Módulo 2: Técnicas de Injeção de Código
+# Técnicas de Injeção de Código
 
 ## Overview
 

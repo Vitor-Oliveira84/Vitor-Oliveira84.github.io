@@ -1,4 +1,4 @@
-# Módulo 3-4: Command & Control + Windows Security Controls
+# Command & Control + Windows Security Controls
 
 ## PARTE 1: Command & Control (C2) Evasion
 

@@ -1,4 +1,4 @@
-# Módulo 1: Fundamentos de Evasão de Antivírus
+# Fundamentos de Evasão de Antivírus
 
 ## 1. Estrutura Portable Executable (PE)
 
