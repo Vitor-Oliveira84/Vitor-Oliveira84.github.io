@@ -20,36 +20,11 @@ Complete technical documentation across 5 modules covering endpoint protection e
 
 ## 🎯 Quick Start
 
-### Prerequisites
-- Windows 10/11 knowledge
-- Command line basics (PowerShell, CMD)
-- Programming fundamentals
-- Networking basics
-
-### Recommended Learning Path
 1. Start with `00-MASTER-GUIDE.md`
 2. Progress through modules sequentially
 3. Complete lab exercises for each module
 4. Test in isolated environment
 5. Document results
-
----
-
-## 🧪 Lab Environment
-
-### Minimum Requirements
-- Windows 10/11 VM (target)
-- Kali/Linux VM (attacker)
-- Visual Studio Community
-- Python 3.9+
-- Isolated network
-
-### Key Tools
-- msfvenom (shellcode)
-- ThreatCheck (signature detection)
-- dnSpy (.NET decompiler)
-- Procmon (process monitoring)
-- PowerShell 5.1+
 
 ---
 
@@ -68,29 +43,12 @@ Complete technical documentation across 5 modules covering endpoint protection e
 
 ---
 
-## 📊 Module Breakdown
+## 📊 Techniques Covered
 
-### Module 1: Antivirus Fundamentals (8-12 hours)
-PE structure, APIs, D/Invoke, shellcode, EDR basics
-
-### Module 2: Code Injection (6-8 hours)
-Process injection, hollowing, DLL injection, sideloading
-
-### Module 3-4: C2 & Windows Controls (10-14 hours)
-C2 redirectors, AppLocker bypasses, LAPS, PPL, ETW, Sysmon
-
-### Module 5: Macros & Delivery (6-8 hours)
-VBA development, macro obfuscation, LNK phishing, CPL files
-
----
-
-## 🎓 Estimated Timeline
-
-- **Week 1-2:** Fundamentals and lab setup
-- **Week 3:** Code injection techniques
-- **Week 4:** C2 and Windows controls
-- **Week 5:** Macros and payload delivery
-- **Week 6:** Integration and advanced testing
+- PE structure, APIs, D/Invoke, shellcode, EDR basics
+- Process injection, hollowing, DLL injection, sideloading
+- C2 redirectors, AppLocker bypasses, LAPS, PPL, ETW, Sysmon
+- VBA development, macro obfuscation, LNK phishing, CPL files
 
 ---
 

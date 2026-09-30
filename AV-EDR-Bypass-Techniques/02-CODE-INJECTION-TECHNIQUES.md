@@ -616,7 +616,3 @@ jmp 0x401000
 - [ ] Backdoor binário compreendido
 - [ ] Todos os métodos testados contra Defender
 - [ ] IOCs documentados
-
----
-
-**Módulo 2 Concluído** ✅

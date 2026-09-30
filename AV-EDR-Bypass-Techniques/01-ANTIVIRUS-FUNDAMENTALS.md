@@ -603,7 +603,3 @@ int main() {
 | Manual Mapping | Alta | Alta | Excelente |
 | Hells Gate | Muito Alta | Muito Alta | Excelente |
 | Sandbox Evasion | Média | Média | Bom |
-
----
-
-**Módulo 1 Concluído** ✅

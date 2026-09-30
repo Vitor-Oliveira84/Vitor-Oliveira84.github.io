@@ -569,7 +569,3 @@ Zona 3 = Internet = potencialmente perigoso.
 - [ ] Sysmon behavior entendido
 - [ ] Code signing spoof testado
 - [ ] MOTW container bypass funcional
-
----
-
-**Módulo 3-4 Concluído** ✅
