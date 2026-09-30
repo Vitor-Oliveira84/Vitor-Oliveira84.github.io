@@ -347,7 +347,3 @@ python flag-hunter.py image.jpg
 python CTF-Forensics-Toolkit.py jpgcom image.jpg
 python CTF-Forensics-Toolkit.py rsa key.pem flag.enc
 ```
-
----
-
-**Desenvolvido com base em relatório de CTF de 28/09/2026 — Metodologia testada em 8 desafios reais.**

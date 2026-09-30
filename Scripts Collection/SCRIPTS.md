@@ -252,5 +252,3 @@ python ctf-pipeline.py arquivo.png
 - Leia `README.md` para documentação completa
 - Veja casos reais testados: 8 desafios de CTF com 100% sucesso
 - Verifique troubleshooting no README
-
-**Boa sorte no seu próximo CTF!** 🎯

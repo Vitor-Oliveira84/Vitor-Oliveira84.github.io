@@ -134,7 +134,3 @@ python credential-stuffing.py -c user:pass -s aws
 | Connection timeout | Aumentar timeout, verificar firewall |
 | Rate limited | Adicionar delay |
 | API key inválida | Verificar variáveis de ambiente |
-
----
-
-**ROI: 500-800% em eficiência**

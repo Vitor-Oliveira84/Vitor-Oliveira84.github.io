@@ -340,7 +340,3 @@ CVSS 3.0-4.9:     _____ vulnerabilidades
 - OWASP Top 10 for LLM Applications
 - NIST AI Risk Management Framework
 - MITRE ATLAS (Adversarial Threat Landscape for AI Systems)
-
----
-
-**Assessment realizado conforme CLLMSE 2.0 Standards**

@@ -414,7 +414,3 @@ pip install numpy pandas matplotlib  # Para análise avançada
 ## 📄 Licença
 
 Apenas para fins educacionais e testes autorizados.
-
----
-
-**Desenvolvido para CLLMSE & CLLMSP Certification | 2026**

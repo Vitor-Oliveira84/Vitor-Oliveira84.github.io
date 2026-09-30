@@ -568,7 +568,3 @@ Mas:
 **Abordagem ideal = Combinar ambos**
 
 Prompts para descoberta inicial → Scripts para validação estruturada
-
----
-
-**Desenvolvido para CLLMSE/CLLMSP Professionals | 2026**
