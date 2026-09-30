@@ -14,7 +14,7 @@ Complete technical documentation across 5 modules covering endpoint protection e
 - **`01-ANTIVIRUS-FUNDAMENTALS.md`** - PE, APIs, D/Invoke, shellcode, EDR
 - **`02-CODE-INJECTION-TECHNIQUES.md`** - Process injection, hollowing, DLL injection
 - **`03-C2-AND-WINDOWS-CONTROLS.md`** - C2, AppLocker, LAPS, PPL, ETW, Sysmon
-- **`05-MACROS-AND-PAYLOAD-DELIVERY.md`** - VBA, macros, LNK phishing, CPL
+- **`04-MACROS-AND-PAYLOAD-DELIVERY.md`** - VBA, macros, LNK phishing, CPL
 
 ---
 
@@ -49,6 +49,59 @@ Complete technical documentation across 5 modules covering endpoint protection e
 - Process injection, hollowing, DLL injection, sideloading
 - C2 redirectors, AppLocker bypasses, LAPS, PPL, ETW, Sysmon
 - VBA development, macro obfuscation, LNK phishing, CPL files
+
+---
+
+## 📑 Complete Table of Contents
+
+### Módulo 1: Fundamentos de Evasão de Antivírus
+- Estrutura Portable Executable (PE)
+- Windows APIs e System Calls
+- P/Invoke vs D/Invoke
+- Detecção por Assinatura
+- Shellcode Runners & Crypters
+- Detecção Heurística/Comportamental
+- Reflection
+- Evasão em Linux
+- EDR (Endpoint Detection & Response)
+- Hells Gate & System Call Obfuscation
+
+### Módulo 2: Técnicas de Injeção de Código
+- Classic Process Injection
+- NtMapViewOfSection Injection
+- QueueUserAPC Injection
+- Process Hollowing (RunPE)
+- DLL Injection (Disk-Based)
+- Reflective DLL Injection
+- Shellcode RDI (sRDI)
+- DLL Sideloading
+- Backdooring de Binários
+
+### Módulo 3-4: Command & Control + Windows Security Controls
+**Parte 1: C2 Evasion**
+- C2 Redirectors
+- Network Profiles (Malleable C2)
+- Covert Channels
+- Domain Fronting
+- HTML Smuggling
+
+**Parte 2: Windows Security Controls**
+- AppLocker (Fundamentals & 8+ Bypasses)
+- LAPS (Local Administrator Password Solution)
+- PPL (Protected Processes Light)
+- ETW (Event Tracing for Windows)
+- Sysmon
+- Binary Signing & Code Certificates
+- Mark of the Web (SmartScreen)
+
+### Módulo 4: Macros e Entrega de Payload
+- VBA Fundamentals
+- Macro AutoOpen & Obfuscation
+- Técnicas de Execução (Shell, WScript, WMI, Shellcode)
+- VBA Stomping (EvilClippy)
+- Phishing com LNK Files
+- CPL Files (Control Panel)
+- Análise Forense e IOCs
 
 ---
 
