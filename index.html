@@ -312,11 +312,15 @@
   a[href*="github.com"] .project-card:hover { border-color: var(--red) !important; }
   .project-card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
 
-  /* BLOG - v5 final fix */
+  /* BLOG - flex 2 columns */
   .blog-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr !important;
+    display: flex;
+    flex-wrap: nowrap;
     gap: 1.5rem;
+  }
+  .blog-grid > a {
+    flex: 1 1 50%;
+    min-width: 0;
   }
   .blog-card {
     background: var(--bg2);
