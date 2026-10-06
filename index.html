@@ -311,6 +311,88 @@
   a[href*="github.com"] .project-card:hover { border-color: var(--red) !important; }
   .project-card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
 
+  /* BLOG */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .blog-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  }
+  .blog-card:hover {
+    border-color: var(--blue);
+    background: rgba(59, 130, 246, 0.03);
+    transform: translateY(-3px);
+  }
+  .blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .blog-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .blog-category {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blue);
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+  }
+  .blog-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-top: 0.5rem;
+  }
+  .blog-card p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  .blog-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .blog-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+  }
+  .blog-link {
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+  .blog-link:hover {
+    text-decoration: underline;
+  }
+
   /* CONTACT */
   .contact-links {
     display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
@@ -929,6 +1011,37 @@
       <button class="skill-btn" onclick="open_modal('ir')">Incident Response</button>
       <button class="skill-btn" onclick="open_modal('detection')">Threat Detection</button>
       <button class="skill-btn" onclick="open_modal('tuning')">Detection Tuning</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="reveal">
+    <p class="section-label">// 07 &mdash; blog</p>
+    <h2>Artigos & Pesquisa</h2>
+    <p style="color: var(--text-dim); margin-bottom: 2rem;">Análises técnicas, técnicas de ataque, pesquisa de segurança e exploração de vulnerabilidades.</p>
+    <div class="blog-grid">
+      <a href="/blog/2026/10/06/spear-phishing-por-anexo/" target="_blank" style="text-decoration: none; color: inherit;">
+        <div class="blog-card">
+          <div class="blog-header">
+            <span class="blog-date">06 Oct 2026</span>
+            <span class="blog-category">Phishing</span>
+          </div>
+          <h3>Spear Phishing por Anexo</h3>
+          <p>Como Atacantes Exploram Documentos e Evitam Antivírus. Técnicas modernas de spear phishing usando anexos maliciosos, remote template injection, macros ofuscadas e evasão de EDR.</p>
+          <div class="blog-tags">
+            <span class="blog-tag">spear-phishing</span>
+            <span class="blog-tag">social-engineering</span>
+            <span class="blog-tag">malware</span>
+            <span class="blog-tag">evasion</span>
+          </div>
+          <a href="/blog" class="blog-link">Ler mais →</a>
+        </div>
+      </a>
+    </div>
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="/blog" style="color: var(--blue); font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em;">Ver todos os artigos →</a>
     </div>
   </div>
 </section>
