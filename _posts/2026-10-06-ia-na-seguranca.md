@@ -1,7 +1,7 @@
 ---
 layout: post
 title: IA na Segurança - A Mesma Tecnologia nos Dois Lados do Tabuleiro
-date: 2026-10-06
+date: 2026-10-07
 author: Vitor Oliveira
 categories: [security, ai, threat-intelligence]
 tags: [artificial-intelligence, cybersecurity, appsec, soc, incident-response]
