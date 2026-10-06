@@ -314,11 +314,19 @@
 
   /* BLOG */
   .blog-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
     gap: 1.5rem !important;
-    max-width: 100%;
-    width: 100%;
+    width: 100% !important;
+  }
+
+  .blog-grid > a {
+    flex: 1 1 calc(50% - 0.75rem) !important;
+    min-width: 350px !important;
+  }
+
+  .blog-grid .blog-card {
+    width: 100% !important;
   }
   .blog-card {
     background: var(--bg2);
