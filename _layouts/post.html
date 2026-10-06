@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} | Vitor Oliveira</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #090d1a;
+    --bg2: #0f1526;
+    --bg3: #151c30;
+    --red: #e63946;
+    --blue: #3b82f6;
+    --text: #c9d1e0;
+    --text-dim: #6b7a99;
+    --text-bright: #eef2ff;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(9, 13, 26, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  nav a { color: var(--text); font-size: 14px; transition: color 0.2s; }
+  nav a:hover { color: var(--blue); }
+
+  .container {
+    max-width: 900px;
+    margin: 80px auto 60px;
+    padding: 0 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-bright);
+  }
+
+  .meta {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .content h2 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-bright);
+  }
+
+  .content h3 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: var(--blue);
+  }
+
+  .content p {
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .content code {
+    background: var(--bg3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--blue);
+  }
+
+  .content pre {
+    background: var(--bg3);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .content pre code {
+    background: none;
+    padding: 0;
+    color: var(--text);
+  }
+
+  a { color: var(--blue); }
+  a:hover { text-decoration: underline; }
+
+  .back-link {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link a {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  .back-link a:hover {
+    color: var(--blue);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div style="font-weight: 600;">Vitor Oliveira</div>
+  <div style="display: flex; gap: 2rem;">
+    <a href="/">Portfolio</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>{{ page.title }}</h1>
+  <div class="meta">
+    <span>{{ page.date | date: "%d de %B de %Y" }}</span>
+    {% if page.author %} • Escrito por {{ page.author }}{% endif %}
+  </div>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  <div class="back-link">
+    <a href="/blog">← Voltar para o Blog</a>
+  </div>
+</div>
+
+</body>
+</html>
