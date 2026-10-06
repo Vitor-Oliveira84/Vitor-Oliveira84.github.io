@@ -589,12 +589,21 @@
     line-height: 1.5;
   }
 
+  @media (min-width: 900px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
   @media (max-width: 640px) {
     nav { padding: 0 1rem; }
     .nav-links { gap: 1rem; }
     section { padding: 4rem 1.25rem; }
     #hero { padding-top: 7rem; }
     .modal-box { max-width: 90vw; padding: 20px; }
+    .blog-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
 </style>
 </head>
