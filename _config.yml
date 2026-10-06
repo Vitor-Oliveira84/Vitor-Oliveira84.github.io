@@ -4,7 +4,6 @@ url: https://vitor-oliveira84.github.io
 author: Vitor Oliveira
 
 # Jekyll configuration
-theme: null
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:slug/
 
